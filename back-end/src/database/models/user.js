@@ -6,7 +6,7 @@ const buildModelUser = (sequelize, DataTypes) => {
       role: DataTypes.STRING,
     }, {
       sequelize,
-      modelName: 'User',
+      tableName: 'Users',
       timestamps: false,
       underscored: true,
     });

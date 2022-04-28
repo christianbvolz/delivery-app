@@ -6,6 +6,7 @@ const validationUser = (req, _res, next) => {
     if (!email || !password) {
     return next({ error: 400, message: '"email" or "password" is required' });
   }
+  next();
 };
 
 module.exports = {

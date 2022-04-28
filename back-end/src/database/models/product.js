@@ -5,7 +5,7 @@ const buildModelProduct = (sequelize, DataTypes) => {
       urlImage: DataTypes.STRING,
     }, {
       sequelize,
-      modelName: 'Product',
+      tableName: 'Product',
       timestamps: false,
     });
   
