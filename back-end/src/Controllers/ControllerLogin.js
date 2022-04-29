@@ -3,6 +3,7 @@ const { generateToken } = require('../Token');
 
 const getLogin = async (req, res, next) => {
   const { email } = req.body;
+  
   const responseUser = await service.getLogin(email);
   
   if (!responseUser) {
@@ -10,9 +11,9 @@ const getLogin = async (req, res, next) => {
   }
 
   const { dataValues: { id, email: userEmail } } = responseUser;
-  const webToken = generateToken({ id, userEmail });
+  const token = generateToken({ id, userEmail });
 
-  return res.status(200).json(webToken);
+  return res.status(200).json(token);
 };
 
 module.exports = {
