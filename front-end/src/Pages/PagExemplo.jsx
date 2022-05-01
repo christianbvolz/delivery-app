@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const PagExemplo = () => (
-  <h1>PagExemplo</h1>
-);
+const PagExemplo = () => {
+  const [value, setValue] = useState('Inicial');
+
+  useEffect(() => {
+    setValue('Valor2');
+  }, []);
+
+  return (
+    <h1>{ value }</h1>
+  );
+};
 
 export default PagExemplo;
