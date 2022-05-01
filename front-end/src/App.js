@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
-import { Login, PagExemplo } from './Pages';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Login } from './Pages';
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={ Login() } />
-      <Route path="/login" element={ PagExemplo() } />
+      <Route path="/" element={ <Navigate replace to="/login" /> } />
+      <Route path="/login" element={ Login() } />
     </Routes>
   );
 }

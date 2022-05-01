@@ -1,7 +1,7 @@
 import Login from './Login';
-import PagExemplo from './PagExemplo';
+import Main from './Main';
 
 export {
   Login,
-  PagExemplo,
+  Main,
 };
