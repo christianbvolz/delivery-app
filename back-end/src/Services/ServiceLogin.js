@@ -4,7 +4,6 @@ const { User } = require('../database/models');
 const getLogin = async (email, password) => {
   const loginUser = await User.findOne({ where: { email } });
 
-  console.log(loginUser);
   if (!loginUser) return undefined;
 
   const hashedPassword = md5(password);
