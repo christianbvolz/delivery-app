@@ -23,6 +23,14 @@
   max-height: 80vh;
 }
 
+.error-msg {
+  display: none;
+}
+
+.error-active {
+  display: inline;
+}
+
 @keyframes shake {
 
   0% {
