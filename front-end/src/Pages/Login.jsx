@@ -10,6 +10,7 @@ const Login = () => {
 
   const loginSubmit = async (event) => {
     event.preventDefault();
+    console.log('LOGIN FOI SUBMITADO')
     try {
       const endpoint = '/login';
 
