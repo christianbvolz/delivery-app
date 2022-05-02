@@ -3,6 +3,7 @@ const { generateToken } = require('../Token');
 
 const getLogin = async (req, res, next) => {
   const { email, password } = req.body;
+  console.log('cheguei no controller uhul!')
   
   const responseUser = await service.getLogin(email, password);
   

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Button = ({ children, testId, disabled }) => (
+const Button = ({ children, disabled }) => (
   <button
     type="submit"
     disabled={ disabled }
-    data-testid={ testId }
+    // data-testid={ testid }
   >
     {children}
   </button>
@@ -14,7 +14,7 @@ const Button = ({ children, testId, disabled }) => (
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool.isRequired,
-  testId: PropTypes.string.isRequired,
+  // testid: PropTypes.string.isRequired,
 };
 
 export default Button;
