@@ -8,6 +8,8 @@ const statusError = (msg) => {
       return 422;
     case 'number.base':
       return 422;
+    case 'string.max':
+      return 422;
     default:
       return 400;
   }

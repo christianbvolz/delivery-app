@@ -1,6 +1,11 @@
 const Joi = require('joi');
 
-const schema = Joi.object({
+const RegisterSchema = Joi.object({
+  name: Joi.string().required().max(12).messages({
+    'string.base': 'Name must be a string',
+    'string.max': 'Name must be less than 12 characters',
+    'any.required': 'Name is required',
+  }),
   email: Joi.string().email().required().messages({
     'string.base': 'Email must be a string',
     'string.email': 'Invalid email format',
@@ -13,4 +18,4 @@ const schema = Joi.object({
   }),
 });
 
-module.exports = schema;
+module.exports = RegisterSchema;

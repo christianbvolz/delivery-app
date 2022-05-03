@@ -1,12 +1,13 @@
 const express = require('express');
 
-const routerLogin = require('../Routes/Login');
+const UserRouter = require('../Routes/UserRouter');
+
 const MiddlewareError = require('../Middlewares/MiddlewareError');
 
 const app = express();
 app.use(express.json());
 
-app.use('/login', routerLogin);
+app.use('/', UserRouter);
 app.use(MiddlewareError);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
