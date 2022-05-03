@@ -22,12 +22,13 @@ const register = async (req, res, next) => {
   
   const createdUser = await UserService.createUser(name, email, password);
 
-  if (!createdUser) return next({ error: 409, message: 'Usuario já cadastrado.' });
+  if (!createdUser) return next({ error: 409, message: 'User already exists.' });
 
   const { id } = createdUser;
+
   const token = generateToken({ id, email });
 
-  return res.status(201).json(token);
+  return res.status(201).json({ token });
 };
 
 module.exports = {
