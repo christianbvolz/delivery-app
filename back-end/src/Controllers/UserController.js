@@ -26,7 +26,7 @@ const register = async (req, res, next) => {
   const { id } = createdUser;
   const token = generateToken({ id, email });
 
-  return res.status(201).json(token);
+  return res.status(201).json({ token });
 };
 
 module.exports = {
