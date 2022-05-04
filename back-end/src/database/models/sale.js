@@ -9,7 +9,7 @@ const buildModelSale = (sequelize, DataTypes) => {
       status: DataTypes.STRING,
     }, {
       sequelize,
-      tableName: 'sale',
+      tableName: 'Sales',
       timestamps: false,
     });
   

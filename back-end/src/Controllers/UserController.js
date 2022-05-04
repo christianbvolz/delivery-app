@@ -8,11 +8,12 @@ const getLogin = async (req, res, next) => {
   
   if (!responseUser) return next({ error: 400, message: 'User does not exist' });
 
-  if (responseUser.error) return next({ error: responseUser.error, message: responseUser.message })
+  if (responseUser.error) return next({ error: responseUser.error, message: responseUser.message });
 
   const { id, email: userEmail } = responseUser;
 
   const token = generateToken({ id, userEmail });
+
   return res.status(200).json({ token });
 };
 
