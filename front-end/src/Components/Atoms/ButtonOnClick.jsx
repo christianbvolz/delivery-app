@@ -1,20 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Button = ({ children, testid, disabled }) => (
+const ButtonOnClick = ({ children, testid, disabled, onClick }) => (
   <button
     type="submit"
     disabled={ disabled }
     data-testid={ testid }
+    onClick={ onClick }
   >
     {children}
   </button>
 );
 
-Button.propTypes = {
+ButtonOnClick.propTypes = {
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool.isRequired,
   testid: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
-export default Button;
+export default ButtonOnClick;

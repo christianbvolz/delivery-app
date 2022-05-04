@@ -13,7 +13,7 @@ const getLogin = async (req, res, next) => {
   const { id, email: userEmail } = responseUser;
 
   const token = generateToken({ id, userEmail });
-  console.log(responseUser.dataValues);
+
   return res.status(200).json({ token });
 };
 
