@@ -58,13 +58,13 @@ const Register = () => {
           onChange={ (e) => setPassword(e.target.value) }
         />
         <Button
-        testid="common_register__button-register"
-        disabled={ !(validateEmail(email)
-          && validatePassword(password)
-          && validateName(name)) }
-      >
-        CADASTRAR
-      </Button>
+          testid="common_register__button-register"
+          disabled={ !(validateEmail(email)
+            && validatePassword(password)
+            && validateName(name)) }
+        >
+          CADASTRAR
+        </Button>
       </form>
       <h4
         testid="common_register__element-invalid_register"
