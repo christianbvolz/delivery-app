@@ -1,15 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-const PagExemplo = () => {
-  const [value, setValue] = useState('Inicial');
+const Main = () => (<Redirect to="/login" />);
 
-  useEffect(() => {
-    setValue('Valor2');
-  }, []);
-
-  return (
-    <h1>{ value }</h1>
-  );
-};
-
-export default PagExemplo;
+export default Main;
