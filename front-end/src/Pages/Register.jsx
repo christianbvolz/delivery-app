@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Button, ButtonOnClick, Input } from '../Components/Atoms';
-import { validateEmail, validatePassword } from '../Utils/Verifications/verify';
+import { Button, Input } from '../Components/Atoms';
+import {
+  validateEmail,
+  validatePassword,
+  validateName } from '../Utils/Verifications/verify';
 import { userRelatedRequests } from '../Services/request';
 
-const Login = () => {
+const Register = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showError, setShowError] = useState(false); // This is a false boolean if there's no error, or a string (and thus true) that shows the error
-  const history = useHistory();
 
-  const routeChange = () => {
-    const path = '/register';
-    history.push(path);
-  };
-
-  const loginSubmit = async (event) => {
+  const registerSubmit = async (event) => {
     event.preventDefault();
     try {
-      const endpoint = '/login';
+      const endpoint = '/register';
 
-      const token = await userRelatedRequests(endpoint, { email, password });
+      const token = await userRelatedRequests(endpoint, { name, email, password });
       console.log(token);
+      // Se ele quiser redirecionar para customer/products depois de criar cadastro fazer igual routeChange da pagina de login
+
       // localStorage.setItem('user', JSON.stringify({ token, ...user }));
       // setIsLogged(true);
     } catch (error) {
@@ -33,12 +32,20 @@ const Login = () => {
 
   return (
     <main>
-      <form onSubmit={ loginSubmit }>
+      <form onSubmit={ registerSubmit }>
+        <Input
+          placeholder="Name"
+          name="name"
+          type="text"
+          testid="common_register__input-name"
+          value={ name }
+          onChange={ (e) => setName(e.target.value) }
+        />
         <Input
           placeholder="Email"
           name="email"
           type="text"
-          testid="common_login__input-email"
+          testid="common_register__input-email"
           value={ email }
           onChange={ (e) => setEmail(e.target.value) }
         />
@@ -46,26 +53,21 @@ const Login = () => {
           placeholder="Password"
           name="password"
           type="password"
-          testid="common_login__input-password"
+          testid="common_register__input-password"
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }
         />
         <Button
-          testid="common_login__button-login"
-          disabled={ !(validateEmail(email) && validatePassword(password)) }
-        >
-          LOGIN
-        </Button>
-      </form>
-      <ButtonOnClick
-        testid="common_login__button-register"
-        disabled={ false }
-        onClick={ routeChange }
+        testid="common_register__button-register"
+        disabled={ !(validateEmail(email)
+          && validatePassword(password)
+          && validateName(name)) }
       >
-        Ainda não tenho conta
-      </ButtonOnClick>
+        CADASTRAR
+      </Button>
+      </form>
       <h4
-        testid="common_login__element-invalid-email"
+        testid="common_register__element-invalid_register"
         className={ `error-msg${showError ? ' error-active' : ''}` }
       >
         {showError}
@@ -74,4 +76,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
