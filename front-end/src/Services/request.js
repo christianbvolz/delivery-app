@@ -13,10 +13,9 @@ const setToken = (token) => {
 };
 
 const ProductsRelatedRequests = async (endpoint) => {
-  const { data } = await axios.get((baseURL + endpoint))
-  
-  return data
-}
+  const { data } = await axios.get((baseURL + endpoint));
+  return data;
+};
 
 export {
   userRelatedRequests,
