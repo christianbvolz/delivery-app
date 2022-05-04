@@ -5,7 +5,7 @@ const buildModelSalesProducts = (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER,
   }, {
     sequelize,
-    tableName: 'SalesProducts',
+    tableName: 'salesProducts',
     timestamps: false,
   });
 

@@ -6,21 +6,19 @@ import { requestLogin } from '../Services/request';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(false); // This is a false boolean if there's no error, or a string (and thus true) that shows the error
 
   const loginSubmit = async (event) => {
     event.preventDefault();
-    console.log('LOGIN FOI SUBMITADO')
     try {
       const endpoint = '/login';
 
-      const { token, message } = await requestLogin(endpoint, { email, password });
-      if (message) setShowError(true);
+      const token = await requestLogin(endpoint, { email, password });
       console.log(token);
       // localStorage.setItem('user', JSON.stringify({ token, ...user }));
       // setIsLogged(true);
     } catch (error) {
-      console.log(error);
+      setShowError(error.response.data.message);
       // setFailedTryLogin(true);
       // setIsLogged(false);
     }
@@ -33,7 +31,7 @@ const Login = () => {
           placeholder="Email"
           name="email"
           type="text"
-          // testid="common_login__input-email"
+          testid="common_login__input-email"
           value={ email }
           onChange={ (e) => setEmail(e.target.value) }
         />
@@ -41,7 +39,7 @@ const Login = () => {
           placeholder="Password"
           name="password"
           type="password"
-          // testid="common_login__input-password"
+          testid="common_login__input-password"
           value={ password }
           onChange={ (e) => setPassword(e.target.value) }
         />
@@ -53,17 +51,17 @@ const Login = () => {
         </Button>
       </form>
       <Button
-        // testid="common_login__button-register"
+        testid="common_login__button-register"
         disabled={ false }
 
       >
         Ainda não tenho conta
       </Button>
       <h4
-        // testid="common_login__element-invalid-email"
+        testid="common_login__element-invalid-email"
         className={ `error-msg${showError ? ' error-active' : ''}` }
       >
-        Usuário não encontrado
+        {showError}
       </h4>
     </main>
   );
