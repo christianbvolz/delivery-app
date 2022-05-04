@@ -12,7 +12,14 @@ const setToken = (token) => {
   api.defaults.headers.common.Authorization = token;
 };
 
+const ProductsRelatedRequests = async (endpoint) => {
+  const { data } = await axios.get((baseURL + endpoint))
+  
+  return data
+}
+
 export {
   userRelatedRequests,
   setToken,
+  ProductsRelatedRequests,
 };
