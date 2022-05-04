@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Navegacao() {
   return (
-    <div className="d-flex justify-content-around bg-success text-dark">
+    <div className="bg-success text-dark">
       <nav className="navbar navbar-expand-lg navbar-light ">
         <ul className="navbar-nav">
           <li className="nav-item p-3"> 

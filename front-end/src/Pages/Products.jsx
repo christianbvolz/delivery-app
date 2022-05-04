@@ -6,6 +6,7 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [qtdProduto, setQtdProduto] = useState(0);
+  const [myCar, setMyCar] = useState([]);
 
   useEffect(async() => {
     setLoading(true);
@@ -15,9 +16,8 @@ function Products() {
   }, []);
 
   const handleClick = () => {
-    setQtdProduto((estadoAnterior, _props) => ({
-      qtdProduto: estadoAnterior.qtdProduto + 1
-    }))
+    setMyCar([...myCar, item]);
+    setQtdProduto(qtdProduto + 1)
   }
 
   return(
