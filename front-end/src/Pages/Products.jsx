@@ -12,6 +12,7 @@ function Products() {
     setLoading(true);
     const data = await ProductsRelatedRequests('/products');
     setProducts(data);
+    
     setLoading(false);
   }, []);
 
