@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { Button, ButtonOnClick, Input } from '../Components/Atoms';
 import { validateEmail, validatePassword } from '../Utils/Verifications/verify';
 import { userRelatedRequests } from '../Services/request';
@@ -7,6 +7,7 @@ import { userRelatedRequests } from '../Services/request';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogged, setIsLogged] = useState(false);
   const [showError, setShowError] = useState(false); // This is a false boolean if there's no error, or a string (and thus true) that shows the error
   const history = useHistory();
 
@@ -23,7 +24,7 @@ const Login = () => {
       const token = await userRelatedRequests(endpoint, { email, password });
       console.log(token);
       // localStorage.setItem('user', JSON.stringify({ token, ...user }));
-      // setIsLogged(true);
+      setIsLogged(true);
     } catch (error) {
       setShowError(error.response.data.message);
       // setFailedTryLogin(true);
@@ -31,7 +32,7 @@ const Login = () => {
     }
   };
 
-  return (
+  return isLogged ? (<Redirect to="/customer/products" />) : (
     <main>
       <form onSubmit={ loginSubmit }>
         <Input
