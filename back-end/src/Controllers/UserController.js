@@ -6,7 +6,7 @@ const getLogin = async (req, res, next) => {
   
   const responseUser = await UserService.getLogin(email, password);
   
-  if (!responseUser) return next({ error: 400, message: 'User does not exist' });
+  if (!responseUser) return next({ error: 404, message: 'User does not exist' });
 
   if (responseUser.error) return next({ error: responseUser.error, message: responseUser.message });
 
