@@ -9,7 +9,14 @@ const generateToken = (payload) => {
   return Token;
 };
 
-const verifyToken = (token) => jwt.verify(token, secret);
+const verifyToken = (token) => {
+  try {
+    const result = jwt.verify(token, secret);
+    return result;
+  } catch (_error) {
+    return false;
+  }
+};
 
 module.exports = {
   generateToken,
