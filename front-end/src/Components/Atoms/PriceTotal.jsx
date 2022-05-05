@@ -3,10 +3,7 @@ import React from 'react';
 import ButtonOnClick from './ButtonOnClick';
 
 function PriceTotal({ arr }) {
-  const somaTotal = arr.reduce((acc, curr) => {
-    acc += curr.price;
-    return acc;
-  }, 0);
+  const somaTotal = arr.reduce((acc, curr) => acc + parseFloat(curr.price), 0).toFixed(2);
 
   return (
     <div>
