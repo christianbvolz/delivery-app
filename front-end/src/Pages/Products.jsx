@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navegacao from '../Components/Atoms/Navegacao';
 import { ProductsRelatedRequests } from '../Services/request';
-import { ButtonOnClick } from '../Components/Atoms';
+import { ButtonOnClick, PriceTotal } from '../Components/Atoms';
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -37,17 +37,35 @@ function Products() {
                   onClick={ () => {
                     setMyCar([...myCar, item]);
                     setQtdProduto(qtdProduto + 1);
+                    console.log(myCar);
                   } }
                 >
                   +
                 </ButtonOnClick>
                 <p>{ qtdProduto }</p>
+                <ButtonOnClick
+                  testid=""
+                  disabled={ false }
+                  onClick={ () => {
+                    if (qtdProduto > 0) {
+                      const numero = myCar.indexOf(item);
+                      myCar.splice(numero, 1);
+                      setQtdProduto(qtdProduto - 1);
+                      console.log(myCar);
+                    }
+                  } }
+                >
+                  -
+                </ButtonOnClick>
               </div>
             </div>
           ))
         }
         { (loading) && <p>Carregando...</p> }
       </main>
+      <div>
+        <PriceTotal arr={ myCar } />
+      </div>
     </div>
   );
 }
