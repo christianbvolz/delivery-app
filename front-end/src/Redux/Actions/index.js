@@ -1,13 +1,15 @@
-// import { fetchMyApi } from '../../Api/fetch';
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
-export const NEW_ACTION = 'NEW_ACTION';
-// export const USER_LOGIN_SUCESS = 'USER_LOGIN_SUCESS';
-// export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
-
-export const setAnything = (payload) => ({
-  type: NEW_ACTION,
+export const addToCart = (payload) => ({
+  type: ADD_TO_CART,
   payload,
 });
+
+export const removeFromCart = (payload) => ({
+  type: REMOVE_FROM_CART,
+  payload,
+})
 
 // export const postUserLoginSucess = (payload) => ({
 //   type: USER_LOGIN_SUCESS,
