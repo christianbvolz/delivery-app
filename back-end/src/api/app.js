@@ -14,6 +14,7 @@ app.use(cors());
 app.use('/', UserRouter);
 app.use('/', ProductsRouter);
 app.use('/order', SalesProductsRouter);
+app.use('/products', customer);
 app.use(MiddlewareError);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
