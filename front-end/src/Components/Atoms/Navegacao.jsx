@@ -7,16 +7,37 @@ function Navegacao() {
       <nav className="navbar navbar-expand-lg navbar-light ">
         <ul className="navbar-nav">
           <li className="nav-item p-3">
-            <Link to="/customer/products" className="nav-link active">PRODUTOS</Link>
+            <Link
+              to="/customer/products"
+              data-testid="customer_products__element-navbar-link-products"
+              className="nav-link active"
+            >
+              PRODUTOS
+            </Link>
           </li>
           <li className="nav-item p-3">
-            <Link to="/meusProdutos" className="nav-link active">MEUS PRODUTOS</Link>
+            <Link
+              to="/meusProdutos"
+              data-testid="customer_products__element-navbar-link-orders"
+              className="nav-link active"
+            >
+              MEUS PRODUTOS
+            </Link>
           </li>
           <li>
-            <p>Nome da pessoa</p>
+            <p
+              data-testid="customer_products__element-navbar-user-full-name"
+            >
+              Nome da pessoa
+            </p>
           </li>
           <li>
-            <button type="button">Sair</button>
+            <button
+              type="button"
+              data-testid="customer_products__element-navbar-link-logout"
+            >
+              Sair
+            </button>
           </li>
         </ul>
       </nav>

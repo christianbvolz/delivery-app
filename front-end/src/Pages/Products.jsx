@@ -27,24 +27,25 @@ function Products() {
         {
           products.map((item) => (
             <div key={ item.id } className="border border-warning rounded m-2 p-3">
-              <p>{ item.price }</p>
-              { item.urlImage }
+              <p
+                data-testid={ `customer_products__element-card-price${item.id}` }
+              >
+                { item.price }
+              </p>
+              <img
+                src={ item.urlImage }
+                alt={ item.name }
+                data-testid={ `customer_products__img-card-bg-image-${item.id}` }
+              />
               <div>
-                <p>{ item.name }</p>
-                <ButtonOnClick
-                  testid=""
-                  disabled={ false }
-                  onClick={ () => {
-                    setMyCar([...myCar, item]);
-                    setQtdProduto(qtdProduto + 1);
-                    console.log(myCar);
-                  } }
+                <p
+                  data-testid={ `customer_products__element-card-title-${item.id}` }
                 >
-                  +
-                </ButtonOnClick>
-                <p>{ qtdProduto }</p>
+                  { item.name }
+                </p>
+
                 <ButtonOnClick
-                  testid=""
+                  testid={ `customer_products__button-card-rm-item-${item.id}` }
                   disabled={ false }
                   onClick={ () => {
                     if (qtdProduto > 0) {
@@ -56,6 +57,24 @@ function Products() {
                   } }
                 >
                   -
+                </ButtonOnClick>
+
+                <p
+                  data-testid={ `customer_products__input-card-quantity-${item.id}` }
+                >
+                  { qtdProduto }
+                </p>
+
+                <ButtonOnClick
+                  testid={ `customer_products__button-card-add-item-${item.id}` }
+                  disabled={ false }
+                  onClick={ () => {
+                    setMyCar([...myCar, item]);
+                    setQtdProduto(qtdProduto + 1);
+                    console.log(myCar);
+                  } }
+                >
+                  +
                 </ButtonOnClick>
               </div>
             </div>

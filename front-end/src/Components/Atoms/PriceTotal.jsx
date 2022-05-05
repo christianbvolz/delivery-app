@@ -1,12 +1,27 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import ButtonOnClick from './ButtonOnClick';
 
 function PriceTotal({ arr }) {
-  const somaTotal = arr.reduce((acc, curr) => acc + curr.price, 0);
+  const somaTotal = arr.reduce((acc, curr) => {
+    acc += curr.price;
+    return acc;
+  }, 0);
 
   return (
     <div>
-      { somaTotal }
+      <ButtonOnClick
+        testid="customer_products__button-cart"
+        disabled={ false }
+        onClick={ () => {
+          console.log('redirecionar para o carrinho');
+        } }
+      >
+        Ver Carrinho: R$
+        <span data-testid="customer_products__checkout-bottom-value">
+          { somaTotal }
+        </span>
+      </ButtonOnClick>
     </div>
   );
 }
