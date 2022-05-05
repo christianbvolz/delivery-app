@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import { Login, Main, Register } from './Pages';
+import { Login, Main, Register, Products } from './Pages';
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
       <Route exact path="/" component={ Main } />
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
+      <Route path="/customer/products" component={ Products } />
     </Switch>
   );
 }
