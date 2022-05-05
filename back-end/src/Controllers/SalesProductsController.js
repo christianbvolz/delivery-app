@@ -24,7 +24,8 @@ const create = async (req, res, next) => {
 
   if (!orderVerify) return next({ error: 404, message: 'Product not found.' });
 
-  const saleId = await SalesService.create({ userId: authorized.id, totalPrice, deliveryAdress, deliveryNumber });
+  const saleId = await SalesService
+    .create({ userId: authorized.id, totalPrice, deliveryAdress, deliveryNumber });
   
   order.forEach(async ({ id: productId, quantity }) => {
     await SalesProductsService.create({ saleId, productId, quantity });

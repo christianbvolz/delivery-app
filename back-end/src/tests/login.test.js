@@ -44,7 +44,7 @@ describe('Rota /login', () => {
         password: '--adm2@21!!--'
       });
 
-      expect(response).to.have.status(400);
+      expect(response).to.have.status(404);
       expect(response.body).to.have.property('message');
       expect(response.body.message).to.be.eq('User does not exist');
     });

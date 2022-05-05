@@ -7,8 +7,8 @@ const orderSchema = Joi.object({
   order: Joi.array().items(Joi.object({
     id: Joi.number().positive().integer().required(),
     quantity: Joi.number().positive().integer().required(),
-  }))
-  .min(1).required().messages({
+  })).min(1).required()
+  .messages({
     'string.base': 'Order must be an array',
     'any.required': 'Order is required',
   }),
