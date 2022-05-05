@@ -20,7 +20,8 @@ const createUser = async (name, email, password) => {
 
   const hashedPassword = md5(password);
 
-  const createdUser = await User.create({ name, email, password: hashedPassword, role: 'customer' });
+  const createdUser = await User
+  .create({ name, email, password: hashedPassword, role: 'customer' });
 
   return createdUser;
 };
