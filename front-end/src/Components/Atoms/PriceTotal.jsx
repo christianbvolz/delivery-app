@@ -3,7 +3,6 @@ import React from 'react';
 import ButtonOnClick from './ButtonOnClick';
 
 function PriceTotal({ cart }) {
-  console.log(cart);
   const somaTotal = cart.reduce((acc, curr) => acc
     + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 

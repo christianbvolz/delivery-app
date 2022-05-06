@@ -30,13 +30,13 @@ function Card({ item, cart, updateCart }) {
           disabled={ false }
           onClick={ () => {
             const index = cart.indexOf(item);
-            if (index === NOT_FOUND) {
+            if (index !== NOT_FOUND) {
               cart[index].quantity -= 1;
               if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
               }
+              updateCart([...cart]);
             }
-            updateCart(cart);
           } }
         >
           -
@@ -46,10 +46,9 @@ function Card({ item, cart, updateCart }) {
           data-testid={ `customer_products__input-card-quantity-${item.id}` }
         >
           { cart
-          && cart.find((element) => element.id === item.id)
-          && cart.find((element) => element.id === item.id).quantity }
+            && cart.find((element) => element.id === item.id)?.quantity
+            ? cart.find((element) => element.id === item.id).quantity : 0 }
         </p>
-
         <ButtonOnClick
           testid={ `customer_products__button-card-add-item-${item.id}` }
           disabled={ false }
@@ -61,7 +60,7 @@ function Card({ item, cart, updateCart }) {
             } else {
               cart[index].quantity += 1;
             }
-            updateCart(cart);
+            updateCart([...cart]);
           } }
         >
           +

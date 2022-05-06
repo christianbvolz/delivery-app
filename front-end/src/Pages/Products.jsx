@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Navegacao from '../Components/Atoms/Navegacao';
 import { ProductsRelatedRequests } from '../Services/request';
 import { PriceTotal } from '../Components/Atoms';
@@ -8,7 +9,6 @@ import Card from '../Components/Atoms/Card';
 function Products({ cart }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const dataRelatedRequests = async () => {
     setLoading(true);
     const data = await ProductsRelatedRequests('/products');
@@ -24,6 +24,9 @@ function Products({ cart }) {
     dataRelatedRequests();
   }, []);
 
+  useEffect(() => {
+    console.log('Log de cart em PRODUCTS: ', cart);
+  }, [cart]);
   return (
     <div>
       <Navegacao />
