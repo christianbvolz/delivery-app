@@ -1,5 +1,5 @@
 import {
-  addToCart, ADD_TO_CART,
+  UPDATE_CART,
 } from '../Actions';
 
 const INITIAL_STATE = {
@@ -8,14 +8,10 @@ const INITIAL_STATE = {
 
 function cartReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case ADD_TO_CART:
-      return {
-        ...state,
-        cart: cart.push(payload),
-    }
+  case UPDATE_CART:
     return {
       ...state,
-      cart: cart.push(payload),
+      cart: action.payload,
     };
   default:
     return state;

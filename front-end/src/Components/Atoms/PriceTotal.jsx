@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ButtonOnClick from './ButtonOnClick';
 
-function PriceTotal({ arr }) {
-  const somaTotal = arr.reduce((acc, curr) => acc + parseFloat(curr.price), 0).toFixed(2);
+function PriceTotal({ cart }) {
+  console.log(cart);
+  const somaTotal = cart.reduce((acc, curr) => acc
+    + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 
   return (
     <div>
@@ -24,7 +26,7 @@ function PriceTotal({ arr }) {
 }
 
 PriceTotal.propTypes = {
-  arr: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  cart: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
 };
 
 export default PriceTotal;

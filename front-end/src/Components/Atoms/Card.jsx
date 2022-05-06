@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import ButtonOnClick from './ButtonOnClick';
+import { updateCart as updateCartAction } from '../../Redux/Actions';
 
-function Card({ item }) {
-  const [qtdProduto, setQtdProduto] = useState(0);
-  const [myCar, setMyCar] = useState([]);
-
+const NOT_FOUND = -1;
+function Card({ item, cart, updateCart }) {
   return (
     <div key={ item.id } className="border border-warning rounded m-2 p-3">
       <p
@@ -29,11 +29,14 @@ function Card({ item }) {
           testid={ `customer_products__button-card-rm-item-${item.id}` }
           disabled={ false }
           onClick={ () => {
-            if (qtdProduto > 0) {
-              const numero = myCar.indexOf(item);
-              myCar.splice(numero, 1);
-              setQtdProduto(qtdProduto - 1);
+            const index = cart.indexOf(item);
+            if (index === NOT_FOUND) {
+              cart[index].quantity -= 1;
+              if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+              }
             }
+            updateCart(cart);
           } }
         >
           -
@@ -42,16 +45,23 @@ function Card({ item }) {
         <p
           data-testid={ `customer_products__input-card-quantity-${item.id}` }
         >
-          { qtdProduto }
+          { cart
+          && cart.find((element) => element.id === item.id)
+          && cart.find((element) => element.id === item.id).quantity }
         </p>
 
         <ButtonOnClick
           testid={ `customer_products__button-card-add-item-${item.id}` }
           disabled={ false }
           onClick={ () => {
-            setMyCar([...myCar, item]);
-            setQtdProduto(qtdProduto + 1);
-            console.log(myCar);
+            const index = cart.indexOf(item);
+            if (index === NOT_FOUND) {
+              item.quantity = 1;
+              cart.push(item);
+            } else {
+              cart[index].quantity += 1;
+            }
+            updateCart(cart);
           } }
         >
           +
@@ -61,7 +71,14 @@ function Card({ item }) {
   );
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  updateCart: (cart) => dispatch(updateCartAction(cart)),
+});
+
 Card.propTypes = {
-  item: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  item: PropTypes.objectOf.isRequired,
+  cart: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  updateCart: PropTypes.func.isRequired,
 };
-export default Card;
+
+export default connect(null, mapDispatchToProps)(Card);
