@@ -5,8 +5,8 @@ const buildModelSale = (sequelize, DataTypes) => {
       totalPrice: DataTypes.DECIMAL,
       deliveryAdress: DataTypes.STRING,
       deliveryNumber: DataTypes.STRING,
-      saleDate: DataTypes.DATE,
-      status: DataTypes.STRING,
+      saleDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+      status: { type: DataTypes.STRING, defaultValue: 'Pendente' },
     }, {
       sequelize,
       tableName: 'sales',

@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 const newUser = {
-  name: 'xablaudasilvajuniorstringmaiorque12',
+  name: 'xablauson da silva junior',
   email: 'xablauson@gmail.com',
   password: 'zx123346'
 };
@@ -92,7 +92,7 @@ describe('Rota /register', () => {
 
     it('Quando o nome possui menos de 12 caracteres.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablau',
+        name: 'xablauson',
         email: 'xablauson@gmail.com',
         password: 'zx123346'
       });
@@ -105,7 +105,7 @@ describe('Rota /register', () => {
   describe('Verifica se a requisição não cadastra um novo usuário com email invalido.', () => {
     it('Quando o email não é informado.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablaunomegrandaolek',
+        name: 'xablauson da silva junior',
         password: 'zx123346'
       });
       expect(response).to.have.status(400);
@@ -115,7 +115,7 @@ describe('Rota /register', () => {
 
     it('Quando o email é vazio.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablaunomegrandaolek',
+        name: 'xablauson da silva junior',
         email: '',
         password: 'zx123346'
       });
@@ -126,7 +126,7 @@ describe('Rota /register', () => {
 
     it('Quando o email não é uma string.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablaunomegrandaolek',
+        name: 'xablauson da silva junior',
         email: 2,
         password: 'zx123346'
       });
@@ -137,7 +137,7 @@ describe('Rota /register', () => {
 
     it('Quando o email possui formato invalido.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablausonnomegrandaolek',
+        name: 'xablauson da silva junior',
         email: 'xablauson.com',
         password: 'zx123346'
       });
@@ -150,7 +150,7 @@ describe('Rota /register', () => {
   describe('Verifica se a requisição não cadastra um novo usuário com senha invalida.', () => {
     it('Quando a senha não é informada.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablaudasilvajuniorstringmaiorque12',
+        name: 'xablauson da silva junior',
         email:'xablauson@gmail.com',
       });
       expect(response).to.have.status(400);
@@ -160,7 +160,7 @@ describe('Rota /register', () => {
 
     it('Quando a senha é vazia.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablaudasilvajuniorstringmaiorque12',
+        name: 'xablauson da silva junior',
         email:'xablauson@gmail.com',
         password: ''
       });
@@ -171,7 +171,7 @@ describe('Rota /register', () => {
 
     it('Quando a senha não é uma string.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablaudasilvajuniorstringmaiorque12',
+        name: 'xablauson da silva junior',
         email:'xablauson@gmail.com',
         password: 2
       });
@@ -182,7 +182,7 @@ describe('Rota /register', () => {
 
     it('Quando o email possui menos de 6 caracteres.',  async() => {
       const response = await chai.request(app).post(ENDPOINT).send({
-        name: 'xablaudasilvajuniorstringmaiorque12',
+        name: 'xablauson da silva junior',
         email:'xablauson@gmail.com',
         password: 'zx123'
       });
