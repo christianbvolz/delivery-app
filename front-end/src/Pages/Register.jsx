@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Button, Input } from '../Components/Atoms';
 import {
   validateEmail,
@@ -10,6 +11,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogged, setIsLogged] = useState(false);
   const [showError, setShowError] = useState(false); // This is a false boolean if there's no error, or a string (and thus true) that shows the error
 
   const registerSubmit = async (event) => {
@@ -19,8 +21,7 @@ const Register = () => {
 
       const token = await userRelatedRequests(endpoint, { name, email, password });
       console.log(token);
-      // Se ele quiser redirecionar para customer/products depois de criar cadastro fazer igual routeChange da pagina de login
-
+      setIsLogged(true);
       // localStorage.setItem('user', JSON.stringify({ token, ...user }));
       // setIsLogged(true);
     } catch (error) {
@@ -30,7 +31,7 @@ const Register = () => {
     }
   };
 
-  return (
+  return isLogged ? (<Redirect to="/customer/products" />) : (
     <main>
       <form onSubmit={ registerSubmit }>
         <Input
@@ -67,7 +68,7 @@ const Register = () => {
         </Button>
       </form>
       <h4
-        testid="common_register__element-invalid_register"
+        data-testid="common_register__element-invalid_register"
         className={ `error-msg${showError ? ' error-active' : ''}` }
       >
         {showError}

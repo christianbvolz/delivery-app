@@ -24,6 +24,6 @@ app.get('/coffee', (_req, res) => res.status(418).end());
 module.exports = app;
 
 // const path = require('path');
-// path.resolve('front-end','build',) => partindo da pasta raiz (Aonde node é chamado), sobe para front-end depois sobe para build
+// path.resolve('front-end','build') => partindo da pasta raiz (Aonde node é chamado), sobe para front-end depois sobe para build
 // path.resolve('..') => partindo da pasta raiz, volta uma pasta.
 // https://nodejs.org/api/path.html#pathresolvepaths 
