@@ -66,7 +66,7 @@ const Login = () => {
         Ainda não tenho conta
       </ButtonOnClick>
       <h4
-        testid="common_login__element-invalid-email"
+        data-testid="common_login__element-invalid-email"
         className={ `error-msg${showError ? ' error-active' : ''}` }
       >
         {showError}
