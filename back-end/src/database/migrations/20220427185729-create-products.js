@@ -15,8 +15,9 @@ module.exports = {
         type: Sequelize.DECIMAL(4, 2)
       },
       urlImage: {
-        type: Sequelize.STRING
-      }
+        type: Sequelize.STRING,
+        field: 'url_image'
+      },
     });
   },
   down: async (queryInterface, _Sequelize) => {

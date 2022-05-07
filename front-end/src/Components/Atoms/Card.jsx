@@ -1,17 +1,22 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import ButtonOnClick from './ButtonOnClick';
 import { updateCart as updateCartAction } from '../../Redux/Actions';
 
 const NOT_FOUND = -1;
 function Card({ item, cart, updateCart }) {
+  // const [quantity, setQuantity] = useState(cart
+  //   && cart.find((element) => element.id === item.id)?.quantity
+  //   ? cart.find((element) => element.id === item.id).quantity : 0);
+  const [quantity, setQuantity] = useState(0);
+
   return (
     <div key={ item.id } className="border border-warning rounded m-2 p-3">
       <p
-        data-testid={ `customer_products__element-card-price${item.id}` }
+        data-testid={ `customer_products__element-card-price-${item.id}` }
       >
-        { item.price }
+        { item.price.replace('.', ',') }
       </p>
       <img
         src={ item.urlImage }
@@ -41,14 +46,32 @@ function Card({ item, cart, updateCart }) {
         >
           -
         </ButtonOnClick>
-
-        <p
+        <input
+          type="number"
+          data-testid={ `customer_products__input-card-quantity-${item.id}` }
+          onChange={ (e) => {
+            setQuantity(e.target.value);
+            const index = cart.indexOf(item);
+            if (index === NOT_FOUND) {
+              item.quantity = Number(e.target.value);
+              cart.push(item);
+            } else if (Number(e.target.value) <= 0) {
+              cart[index].quantity = 0;
+            } else {
+              cart[index].quantity = Number(e.target.value);
+            }
+            setQuantity(item.quantity);
+            updateCart([...cart]);
+          } }
+          value={ quantity }
+        />
+        {/* <p
           data-testid={ `customer_products__input-card-quantity-${item.id}` }
         >
           { cart
             && cart.find((element) => element.id === item.id)?.quantity
             ? cart.find((element) => element.id === item.id).quantity : 0 }
-        </p>
+        </p> */}
         <ButtonOnClick
           testid={ `customer_products__button-card-add-item-${item.id}` }
           disabled={ false }
