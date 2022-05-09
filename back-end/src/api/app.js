@@ -7,7 +7,6 @@ const SalesProductsRouter = require('../Routes/SalesProductsRouter');
 
 const MiddlewareError = require('../Middlewares/MiddlewareError');
 
-
 const app = express();
 app.use(express.json());
 app.use(cors());
