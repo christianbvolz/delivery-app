@@ -6,15 +6,28 @@ import Navegacao from '../Components/Atoms/Navegacao';
 import { ButtonOnClick } from '../Components/Atoms';
 import { updateCart as updateCartAction } from '../Redux/Actions';
 import TableRow from '../Components/Atoms/TableRow';
+import { saleProductsRelatedRequests } from '../Services/request';
 
 function Checkout({ cart, updateCart }) {
   const [cartCheckout, setCartCheckout] = useState([]);
   const history = useHistory();
 
-  const finishOrder = () => {
+  const finishOrder = async () => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const order = cartCheckout.map(({ id, quantity }) => ({ id, quantity }));
     updateCart([...cartCheckout]);
-    const path = '/costumer/checkout';
-    history.push(path);
+    const result = await saleProductsRelatedRequests(
+      '/order/create',
+      {
+        order,
+        totalPrice: 20.50,
+        deliveryAdress: 'Alameda dos anjos',
+        deliveryNumber: '197',
+      },
+      token,
+    );
+    console.log(result);
+    history.push('/costumer/checkout');
   };
 
   useEffect(() => {

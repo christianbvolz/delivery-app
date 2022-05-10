@@ -17,8 +17,18 @@ const ProductsRelatedRequests = async (endpoint) => {
   return data;
 };
 
+const saleProductsRelatedRequests = async (endpoint, body, Authorization) => {
+  const result = await axios.post(
+    (baseURL + endpoint),
+    body,
+    { headers: { Authorization } },
+  );
+  return result;
+};
+
 export {
   userRelatedRequests,
   setToken,
   ProductsRelatedRequests,
+  saleProductsRelatedRequests,
 };
