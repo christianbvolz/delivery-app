@@ -3,6 +3,7 @@ import Main from './Main';
 import Register from './Register';
 import Products from './Products';
 import Pedidos from './Pedidos';
+import Checkout from './Checkout';
 
 export {
   Login,
@@ -10,4 +11,5 @@ export {
   Register,
   Products,
   Pedidos,
+  Checkout,
 };
