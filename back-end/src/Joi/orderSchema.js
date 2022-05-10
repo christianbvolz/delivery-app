@@ -13,6 +13,8 @@ const orderSchema = Joi.object({
     'any.required': 'Order is required',
   }),
 
+  sellerId: Joi.number().positive().required(),
+
   totalPrice: Joi.number().positive().required(),
 
   deliveryAdress: Joi.string().required().messages({

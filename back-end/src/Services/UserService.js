@@ -34,8 +34,17 @@ const createUser = async (name, email, password) => {
   return createdUser;
 };
 
+const getSellers = async () => {
+  const allSellers = await User.findAll({ where: { role: 'seller' } });
+
+  if (!allSellers) return undefined;
+
+  return allSellers;
+};
+
 module.exports = {
   getLogin,
   createUser,
   findUser,
+  getSellers,
 };

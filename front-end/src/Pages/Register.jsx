@@ -22,7 +22,7 @@ const Register = () => {
       const token = await userRelatedRequests(endpoint, { name, email, password });
       console.log(token);
       setIsLogged(true);
-      // localStorage.setItem('user', JSON.stringify({ token, ...user }));
+      localStorage.setItem('user', JSON.stringify({ token }));
       // setIsLogged(true);
     } catch (error) {
       setShowError(error.response.data.message);
