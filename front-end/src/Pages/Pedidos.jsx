@@ -33,6 +33,7 @@ function Pedidos() {
       },
     ];
     setPedidos(dataMock);
+    // setPedidos(data);
     setLoading(false);
   };
 
@@ -45,7 +46,11 @@ function Pedidos() {
       <Navegacao />
       <div>
         { loading && <p>Carregando...</p> }
-        { pedidos.map((item) => <CardPedidos key={ item.id } item={ item } />)}
+        {
+          pedidos.length === 0
+            ? <p>Nenhum pedido encontrado</p>
+            : pedidos.map((item) => <CardPedidos key={ item.id } item={ item } />)
+        }
       </div>
     </div>
   );
