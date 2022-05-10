@@ -1,39 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { CardPedidos } from '../Components/Atoms';
 import Navegacao from '../Components/Atoms/Navegacao';
-// import { ProductsRelatedRequests } from '../Services/request';
+import { SalesRelatedRequests } from '../Services/request';
 
 function Pedidos() {
   const [loading, setLoading] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const requestedData = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
     setLoading(true);
-    // const data = await ProductsRelatedRequests('/orders');
+    const data = await SalesRelatedRequests('/orders', token);
     // MOCANDO O RESULTADO DO BACK END
-    const dataMock = [
-      {
-        id: 1,
-        userId: 3,
-        sellerId: 3,
-        totalPrice: 1240,
-        deliveryAdress: 'Rua de teste',
-        deliveryNumber: '233',
-        saleDate: '2022-05-10',
-        status: 'Preparando',
-      },
-      {
-        id: 2,
-        userId: 3,
-        sellerId: 3,
-        totalPrice: 120,
-        deliveryAdress: 'Rua de teste',
-        deliveryNumber: '233',
-        saleDate: '2022-05-10',
-        status: 'Preparando',
-      },
-    ];
-    setPedidos(dataMock);
-    // setPedidos(data);
+    // const dataMock = [
+    //   {
+    //     id: 1,
+    //     userId: 3,
+    //     sellerId: 3,
+    //     totalPrice: 1240,
+    //     deliveryAdress: 'Rua de teste',
+    //     deliveryNumber: '233',
+    //     saleDate: '2022-05-10',
+    //     status: 'Preparando',
+    //   },
+    //   {
+    //     id: 2,
+    //     userId: 3,
+    //     sellerId: 3,
+    //     totalPrice: 120,
+    //     deliveryAdress: 'Rua de teste',
+    //     deliveryNumber: '233',
+    //     saleDate: '2022-05-10',
+    //     status: 'Preparando',
+    //   },
+    // ];
+    // setPedidos(dataMock);
+    setPedidos(data);
     setLoading(false);
   };
 

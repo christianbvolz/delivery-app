@@ -4,7 +4,6 @@ const express = require('express');
 const UserRouter = require('../Routes/UserRouter');
 const ProductsRouter = require('../Routes/ProductsRouter');
 const SalesProductsRouter = require('../Routes/SalesProductsRouter');
-const SalesRouter = require('../Routes/SalesRouter');
 
 const MiddlewareError = require('../Middlewares/MiddlewareError');
 
@@ -17,7 +16,6 @@ app.use('/', UserRouter);
 app.use('/', ProductsRouter);
 app.use('/order', SalesProductsRouter);
 app.use('/products', ProductsRouter);
-app.use('/orders', SalesRouter);
 app.use(MiddlewareError);
 
 app.get('/coffee', (_req, res) => res.status(418).end());

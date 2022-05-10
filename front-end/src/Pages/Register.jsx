@@ -18,9 +18,7 @@ const Register = () => {
     event.preventDefault();
     try {
       const endpoint = '/register';
-
       const user = await userRelatedRequests(endpoint, { name, email, password });
-      
       localStorage.setItem('user', JSON.stringify(user));
       setIsLogged(true);
       // setIsLogged(true);
