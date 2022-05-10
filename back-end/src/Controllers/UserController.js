@@ -14,6 +14,8 @@ const getLogin = async (req, res, next) => {
 
   const token = generateToken({ id, userEmail });
 
+  localStorage.setItem('user', JSON.stringify({ token, ...responseUser }));
+
   return res.status(200).json({ token });
 };
 
