@@ -1,7 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import ButtonOnClick from './ButtonOnClick';
 
 function Navegacao() {
+  const [userName, setUserName] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    const { user: { name } } = JSON.parse(localStorage.getItem('user'));
+    setUserName(name);
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem('user');
+    history.push('/login');
+  };
+
   return (
     <div className="bg-success text-dark">
       <nav className="navbar navbar-expand-lg navbar-light ">
@@ -28,16 +42,17 @@ function Navegacao() {
             <p
               data-testid="customer_products__element-navbar-user-full-name"
             >
-              Nome da pessoa
+              { userName }
             </p>
           </li>
           <li>
-            <button
-              type="button"
-              data-testid="customer_products__element-navbar-link-logout"
+            <ButtonOnClick
+              disabled={ false }
+              testid="customer_products__element-navbar-link-logout"
+              onClick={ logout }
             >
               Sair
-            </button>
+            </ButtonOnClick>
           </li>
         </ul>
       </nav>

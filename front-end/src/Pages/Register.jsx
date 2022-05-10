@@ -19,10 +19,10 @@ const Register = () => {
     try {
       const endpoint = '/register';
 
-      const token = await userRelatedRequests(endpoint, { name, email, password });
-      console.log(token);
+      const user = await userRelatedRequests(endpoint, { name, email, password });
+      
+      localStorage.setItem('user', JSON.stringify(user));
       setIsLogged(true);
-      // localStorage.setItem('user', JSON.stringify({ token, ...user }));
       // setIsLogged(true);
     } catch (error) {
       setShowError(error.response.data.message);

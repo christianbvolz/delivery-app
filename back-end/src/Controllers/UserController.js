@@ -14,9 +14,7 @@ const getLogin = async (req, res, next) => {
 
   const token = generateToken({ id, userEmail });
 
-  localStorage.setItem('user', JSON.stringify({ token, ...responseUser }));
-
-  return res.status(200).json({ token });
+  return res.status(200).json({ token, user: responseUser });
 };
 
 const register = async (req, res, next) => {
@@ -30,7 +28,7 @@ const register = async (req, res, next) => {
 
   const token = generateToken({ id, email });
 
-  return res.status(201).json({ token });
+  return res.status(201).json({ token, user: createdUser });
 };
 
 module.exports = {
