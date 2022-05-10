@@ -23,7 +23,7 @@ const Login = () => {
 
       const token = await userRelatedRequests(endpoint, { email, password });
       console.log(token);
-      localStorage.setItem('token', JSON.stringify(token));
+      localStorage.setItem('user', JSON.stringify({ token }));
       setIsLogged(true);
     } catch (error) {
       setShowError(error.response.data.message);

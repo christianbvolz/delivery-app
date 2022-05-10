@@ -31,7 +31,14 @@ const register = async (req, res, next) => {
   return res.status(201).json({ token });
 };
 
+const getSellers = async (_req, res) => {
+  const sellers = await UserService.getSellers();
+
+  return res.status(200).json(sellers);
+};
+
 module.exports = {
   getLogin,
   register,
+  getSellers,
 };

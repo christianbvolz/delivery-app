@@ -26,9 +26,15 @@ const saleProductsRelatedRequests = async (endpoint, body, Authorization) => {
   return result;
 };
 
+const SellersRelatedRequests = async (endpoint) => {
+  const { data } = await axios.get((baseURL + endpoint));
+  return data;
+};
+
 export {
   userRelatedRequests,
   setToken,
   ProductsRelatedRequests,
   saleProductsRelatedRequests,
+  SellersRelatedRequests,
 };
