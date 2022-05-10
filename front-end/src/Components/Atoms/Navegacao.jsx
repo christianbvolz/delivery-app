@@ -17,7 +17,7 @@ function Navegacao() {
           </li>
           <li className="nav-item p-3">
             <Link
-              to="/meusProdutos"
+              to="/customer/ordersnp"
               data-testid="customer_products__element-navbar-link-orders"
               className="nav-link active"
             >
