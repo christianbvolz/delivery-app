@@ -37,6 +37,7 @@ function Card({ item, cart, updateCart }) {
             const index = cart.indexOf(item);
             if (index !== NOT_FOUND) {
               cart[index].quantity -= 1;
+              setQuantity(quantity - 1);
               if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
               }
@@ -79,8 +80,10 @@ function Card({ item, cart, updateCart }) {
             const index = cart.indexOf(item);
             if (index === NOT_FOUND) {
               item.quantity = 1;
+              setQuantity(quantity + 1);
               cart.push(item);
             } else {
+              setQuantity(quantity + 1);
               cart[index].quantity += 1;
             }
             updateCart([...cart]);
