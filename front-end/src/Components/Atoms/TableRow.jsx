@@ -6,12 +6,34 @@ export default function TableRow({ product, cartIndex, removeProduct }) {
   const subTotal = product.price * product.quantity;
   return (
     <tr key={ product.name }>
-      <td>{ cartIndex }</td>
-      <td>{ product.name }</td>
-      <td>{ product.quantity }</td>
-      <td>{ product.price }</td>
-      <td>{ subTotal.toFixed(2) }</td>
-      <td>
+      <td
+        data-testid={ `customer_checkout__element-order-table-item-number-${cartIndex}` }
+      >
+        { cartIndex }
+      </td>
+      <td
+        data-testid={ `customer_checkout__element-order-table-name-${cartIndex}` }
+      >
+        { product.name }
+      </td>
+      <td
+        data-testid={ `customer_checkout__element-order-table-quantity-${cartIndex}` }
+      >
+        { product.quantity }
+      </td>
+      <td
+        data-testid={ `customer_checkout__element-order-table-unit-price-${cartIndex}` }
+      >
+        { product.price }
+      </td>
+      <td
+        data-testid={ `customer_checkout__element-order-table-sub-total-${cartIndex}` }
+      >
+        { subTotal.toFixed(2) }
+      </td>
+      <td
+        data-testid={ `customer_checkout__element-order-table-remove-${cartIndex}` }
+      >
         <ButtonOnClick
           testid=""
           disabled={ false }
