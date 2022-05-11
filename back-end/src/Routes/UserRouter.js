@@ -6,5 +6,6 @@ const route = Router();
 
 route.post('/login', validationLogin, UserController.getLogin);
 route.post('/register', validationRegister, UserController.register);
+route.get('/sellers', UserController.getSellers);
 
 module.exports = route;

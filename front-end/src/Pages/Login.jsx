@@ -20,7 +20,6 @@ const Login = () => {
     event.preventDefault();
     try {
       const endpoint = '/login';
-
       const user = await userRelatedRequests(endpoint, { email, password });
       localStorage.setItem('user', JSON.stringify(user));
       setIsLogged(true);
