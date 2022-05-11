@@ -13,6 +13,17 @@ const create = async ({ userId, sellerId, totalPrice, deliveryAdress, deliveryNu
   return saleId;
 };
 
+const getAll = async (id) => {
+  const dataValues = await Sale.findAll({
+    where: {
+      userId: id,
+    },
+  });
+  
+  return dataValues;
+};
+
 module.exports = {
   create,
+  getAll,
 };

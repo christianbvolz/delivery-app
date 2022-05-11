@@ -12,17 +12,16 @@ function PriceTotal({ cart }) {
 
   const somaTotal = cart.reduce((acc, curr) => acc
     + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
-
   return (
     <div>
       <ButtonOnClick
         testid="customer_products__button-cart"
-        disabled={ false }
+        disabled={ somaTotal === '0.00' }
         onClick={ routeChange }
       >
         Ver Carrinho: R$
         <span data-testid="customer_products__checkout-bottom-value">
-          { somaTotal }
+          { somaTotal.replace('.', ',') }
         </span>
       </ButtonOnClick>
     </div>

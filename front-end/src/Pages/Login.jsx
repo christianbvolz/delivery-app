@@ -20,10 +20,8 @@ const Login = () => {
     event.preventDefault();
     try {
       const endpoint = '/login';
-
-      const token = await userRelatedRequests(endpoint, { email, password });
-      console.log(token);
-      localStorage.setItem('user', JSON.stringify({ token }));
+      const user = await userRelatedRequests(endpoint, { email, password });
+      localStorage.setItem('user', JSON.stringify(user));
       setIsLogged(true);
     } catch (error) {
       setShowError(error.response.data.message);
