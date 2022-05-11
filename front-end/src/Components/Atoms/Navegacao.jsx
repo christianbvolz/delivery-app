@@ -7,7 +7,7 @@ function Navegacao() {
   const history = useHistory();
 
   useEffect(() => {
-    const { user: { name } } = JSON.parse(localStorage.getItem('user'));
+    const { name } = JSON.parse(localStorage.getItem('user'));
     setUserName(name);
   }, []);
 
