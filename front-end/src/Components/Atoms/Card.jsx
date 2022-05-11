@@ -101,7 +101,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Card.propTypes = {
-  item: PropTypes.objectOf.isRequired,
+  item: PropTypes.objectOf(PropTypes.objectOf).isRequired,
   cart: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
   updateCart: PropTypes.func.isRequired,
 };
