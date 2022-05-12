@@ -20,7 +20,7 @@ export default function TableCheckout({ cartCheckout, removeProduct }) {
           <TableRow
             key={ product.name }
             product={ product }
-            cartIndex={ index + 1 }
+            cartIndex={ index }
             removeProduct={ removeProduct }
           />
         ))}

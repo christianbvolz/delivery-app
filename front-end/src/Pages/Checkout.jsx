@@ -68,7 +68,7 @@ function Checkout({ cart, updateCart }) {
       <h1
         data-testid="customer_checkout__element-order-total-price"
       >
-        {`Total: R$ ${totalPrice}`}
+        { `Total: R$ ${totalPrice.replace('.', ',')}` }
       </h1>
       <CheckoutForm
         sellers={ sellers }

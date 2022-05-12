@@ -22,7 +22,7 @@ function PriceTotal({ cart }) {
       >
         Ver Carrinho: R$
         <span data-testid="customer_products__checkout-bottom-value">
-          { somaTotal }
+          { somaTotal.replace('.', ',') }
         </span>
       </ButtonOnClick>
     </div>

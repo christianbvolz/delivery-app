@@ -9,7 +9,7 @@ export default function TableRow({ product, cartIndex, removeProduct }) {
       <td
         data-testid={ `customer_checkout__element-order-table-item-number-${cartIndex}` }
       >
-        { cartIndex }
+        { cartIndex + 1 }
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-name-${cartIndex}` }
