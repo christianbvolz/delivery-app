@@ -3,30 +3,76 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Navegacao from '../Components/Atoms/Navegacao';
-import { ButtonOnClick } from '../Components/Atoms';
+import { ButtonOnClick, Input } from '../Components/Atoms';
 import { updateCart as updateCartAction } from '../Redux/Actions';
 import TableRow from '../Components/Atoms/TableRow';
+import { saleProductsRelatedRequests, SellersRelatedRequests } from '../Services/request';
 
 function Checkout({ cart, updateCart }) {
   const [cartCheckout, setCartCheckout] = useState([]);
+  const [deliveryAdress, setDeliveryAdress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const [sellers, setSellers] = useState([{ name: 'Fulana Pereira' }]);
+  const [selectedSeller, setSelectedSeller] = useState('Fulana Pereira');
+  const [completedSale, setCompletedSale] = useState(false);
+  const [saleId, setSaleId] = useState(1);
   const history = useHistory();
 
-  const finishOrder = () => {
-    updateCart([...cartCheckout]);
-    const path = '/costumer/checkout';
-    history.push(path);
+  const finishOrder = async () => {
+    try {
+      const { token } = JSON.parse(localStorage.getItem('user'));
+      const order = cartCheckout.map(({ id, quantity }) => ({ id, quantity }));
+      const { id: sellerId } = sellers.find(({ name }) => name === selectedSeller);
+      const totalPrice = cartCheckout.reduce((acc, curr) => acc
+      + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
+      updateCart([...cartCheckout]);
+      const result = await saleProductsRelatedRequests(
+        '/order/create',
+        {
+          order,
+          sellerId,
+          totalPrice,
+          deliveryAdress,
+          deliveryNumber,
+        },
+        token,
+      );
+      setCompletedSale(true);
+      setSaleId(result.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => {
-    setCartCheckout(cart);
-  }, [cart]);
+  const getSellers = async () => {
+    const allSellers = await SellersRelatedRequests('/sellers');
+    setSellers(allSellers);
+  };
 
   const removeProduct = (productId) => {
     const newCartCheckout = cartCheckout.filter(({ id }) => id !== productId);
     setCartCheckout(newCartCheckout);
   };
 
-  return (
+  const completedSaleScreen = () => (
+    <div>
+      <h1>Compra realizada com sucesso!</h1>
+      <ButtonOnClick
+        testid=""
+        disabled={ false }
+        onClick={ () => history.push(`/customer/orders/${saleId}`) }
+      >
+        Ir para detalhes do pedido
+      </ButtonOnClick>
+    </div>
+  );
+
+  useEffect(() => {
+    setCartCheckout(cart);
+    getSellers();
+  }, [cart]);
+
+  return completedSale ? completedSaleScreen() : (
     <div>
       <Navegacao />
       <table>
@@ -52,6 +98,31 @@ function Checkout({ cart, updateCart }) {
         </tbody>
       </table>
       <div>
+        <select
+          data-testid="cc"
+          onChange={ ({ target }) => setSelectedSeller(target.value) }
+          value={ selectedSeller }
+        >
+          {sellers.map(({ name }) => (
+            <option value={ name } key={ name }>{ name }</option>
+          ))}
+        </select>
+        <Input
+          placeholder="Endereço de entrega"
+          testid=""
+          name="deliveryAdress"
+          onChange={ ({ target }) => setDeliveryAdress(target.value) }
+          value={ deliveryAdress }
+          type="text"
+        />
+        <Input
+          placeholder="Número"
+          testid="1"
+          name="deliveryNumber"
+          onChange={ ({ target }) => setDeliveryNumber(target.value) }
+          value={ deliveryNumber }
+          type="number"
+        />
         <ButtonOnClick
           testid=""
           disabled={ false }

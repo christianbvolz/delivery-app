@@ -8,8 +8,10 @@ function Pedidos() {
   const [pedidos, setPedidos] = useState([]);
   const requestedData = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
+    console.log(token);
     setLoading(true);
     const data = await SalesRelatedRequests('/orders', token);
+    console.log('dataaa', data);
     // MOCANDO O RESULTADO DO BACK END
     // const dataMock = [
     //   {
@@ -48,7 +50,7 @@ function Pedidos() {
       <div>
         { loading && <p>Carregando...</p> }
         {
-          pedidos.length === 0
+          pedidos === undefined
             ? <p>Nenhum pedido encontrado</p>
             : pedidos.map((item) => <CardPedidos key={ item.id } item={ item } />)
         }

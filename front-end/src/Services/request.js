@@ -19,7 +19,21 @@ const ProductsRelatedRequests = async (endpoint) => {
 
 const SalesRelatedRequests = async (endpoint, Authorization) => {
   const { data } = await axios.get((baseURL + endpoint), { headers: { Authorization } });
-  console.log('Dentro de request o token: ', data.token);
+
+  return data;
+};
+
+const saleProductsRelatedRequests = async (endpoint, body, Authorization) => {
+  const result = await axios.post(
+    (baseURL + endpoint),
+    body,
+    { headers: { Authorization } },
+  );
+  return result;
+};
+
+const SellersRelatedRequests = async (endpoint) => {
+  const { data } = await axios.get((baseURL + endpoint));
   return data;
 };
 
@@ -28,4 +42,6 @@ export {
   setToken,
   ProductsRelatedRequests,
   SalesRelatedRequests,
+  saleProductsRelatedRequests,
+  SellersRelatedRequests,
 };

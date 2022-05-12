@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
-
-const secret = 'SegreDo';
+const fs = require("fs");
+const path = require("path");
+const secret = fs.readFileSync(path.resolve('jwt.evaluation.key'), { encoding: "utf-8" });
 
 const generateToken = (payload) => {
+  console.log('O segredo é: ',secret)
   const Token = jwt.sign(payload, secret, {
     algorithm: 'HS256',
   });
