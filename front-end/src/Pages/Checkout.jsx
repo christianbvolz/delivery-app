@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { updateCart as updateCartAction } from '../Redux/Actions';
 import { saleProductsRelatedRequests, SellersRelatedRequests } from '../Services/request';
 import Navegacao from '../Components/Atoms/Navegacao';
 import TableCheckout from '../Components/Atoms/TableCheckout';
 import CheckoutForm from '../Components/Atoms/CheckoutForm';
-import CompletedSale from '../Components/Atoms/CompletedSale';
 
 function Checkout({ cart, updateCart }) {
+  const history = useHistory();
   const [cartCheckout, setCartCheckout] = useState([]);
   const [deliveryAdress, setDeliveryAdress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([{ name: 'Fulana Pereira' }]);
   const [selectedSeller, setSelectedSeller] = useState('Fulana Pereira');
-  const [completedSale, setCompletedSale] = useState(false);
-  const [saleId, setSaleId] = useState(1);
   const totalPrice = cartCheckout.reduce((acc, curr) => acc
       + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 
@@ -36,8 +35,7 @@ function Checkout({ cart, updateCart }) {
         },
         token,
       );
-      setCompletedSale(true);
-      setSaleId(result.data);
+      history.push(`/customer/orders/${result.data}`);
     } catch (error) {
       console.log({ error: error.response.data.message });
     }
@@ -58,7 +56,7 @@ function Checkout({ cart, updateCart }) {
     getSellers();
   }, [cart]);
 
-  return completedSale ? <CompletedSale saleId={ saleId } /> : (
+  return (
     <div>
       <Navegacao />
       <TableCheckout

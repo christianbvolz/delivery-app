@@ -24,12 +24,12 @@ export default function TableRow({ product, cartIndex, removeProduct }) {
       <td
         data-testid={ `customer_checkout__element-order-table-unit-price-${cartIndex}` }
       >
-        { product.price }
+        { product.price.replace('.', ',') }
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-sub-total-${cartIndex}` }
       >
-        { subTotal.toFixed(2) }
+        { subTotal.toFixed(2).replace('.', ',') }
       </td>
       <td
         data-testid={ `customer_checkout__element-order-table-remove-${cartIndex}` }

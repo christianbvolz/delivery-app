@@ -10,7 +10,6 @@ const getAll = async (req, res, next) => {
 
   if (!authorized) return next({ error: 400, message: 'UNAUTHORIZED' });
 
-
   const data = await SalesService.getAll(authorized.id);
 
   return res.status(200).json(data);
