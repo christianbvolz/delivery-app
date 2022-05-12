@@ -24,9 +24,6 @@ function Products({ cart }) {
     dataRelatedRequests();
   }, []);
 
-  useEffect(() => {
-    console.log('Log de cart em PRODUCTS: ', cart);
-  }, [cart]);
   return (
     <div>
       <Navegacao />
