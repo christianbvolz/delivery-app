@@ -6,9 +6,6 @@ import { updateCart as updateCartAction } from '../../Redux/Actions';
 
 const NOT_FOUND = -1;
 function Card({ item, cart, updateCart }) {
-  // const [quantity, setQuantity] = useState(cart
-  //   && cart.find((element) => element.id === item.id)?.quantity
-  //   ? cart.find((element) => element.id === item.id).quantity : 0);
   const [quantity, setQuantity] = useState(0);
 
   return (
@@ -36,12 +33,14 @@ function Card({ item, cart, updateCart }) {
           onClick={ () => {
             const index = cart.indexOf(item);
             if (index !== NOT_FOUND) {
+              setQuantity(Number(quantity) - 1);
               cart[index].quantity -= 1;
-              setQuantity(quantity - 1);
               if (cart[index].quantity <= 0) {
                 cart.splice(index, 1);
               }
               updateCart([...cart]);
+            } else {
+              setQuantity(0);
             }
           } }
         >
@@ -56,34 +55,25 @@ function Card({ item, cart, updateCart }) {
             if (index === NOT_FOUND) {
               item.quantity = Number(e.target.value);
               cart.push(item);
-            } else if (Number(e.target.value) <= 0) {
-              cart[index].quantity = 0;
+            } else if ((Number(e.target.value) <= 0) || (e.target.value === '')) {
+              cart.splice(index, 1);
             } else {
               cart[index].quantity = Number(e.target.value);
             }
-            setQuantity(item.quantity);
             updateCart([...cart]);
           } }
           value={ quantity }
         />
-        {/* <p
-          data-testid={ `customer_products__input-card-quantity-${item.id}` }
-        >
-          { cart
-            && cart.find((element) => element.id === item.id)?.quantity
-            ? cart.find((element) => element.id === item.id).quantity : 0 }
-        </p> */}
         <ButtonOnClick
           testid={ `customer_products__button-card-add-item-${item.id}` }
           disabled={ false }
           onClick={ () => {
+            setQuantity(Number(quantity) + 1);
             const index = cart.indexOf(item);
             if (index === NOT_FOUND) {
               item.quantity = 1;
-              setQuantity(quantity + 1);
               cart.push(item);
             } else {
-              setQuantity(quantity + 1);
               cart[index].quantity += 1;
             }
             updateCart([...cart]);

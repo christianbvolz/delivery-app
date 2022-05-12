@@ -13,8 +13,13 @@ const getLogin = async (req, res, next) => {
   const { id, email: userEmail } = responseUser;
 
   const token = generateToken({ id, userEmail });
-
-  return res.status(200).json({ token });
+  const objLocalStorage = {
+    name: responseUser.name,
+    email: responseUser.email,
+    role: responseUser.role,
+    token,
+  };
+  return res.status(200).json(objLocalStorage);
 };
 
 const register = async (req, res, next) => {
@@ -28,7 +33,7 @@ const register = async (req, res, next) => {
 
   const token = generateToken({ id, email });
 
-  return res.status(201).json({ token });
+  return res.status(201).json({ token, user: createdUser });
 };
 
 const getSellers = async (_req, res) => {
