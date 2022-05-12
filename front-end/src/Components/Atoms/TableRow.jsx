@@ -25,7 +25,13 @@ export default function TableRow({ product, cartIndex, removeProduct }) {
 }
 
 TableRow.propTypes = {
-  product: PropTypes.objectOf.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    urlImage: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
   removeProduct: PropTypes.func.isRequired,
   cartIndex: PropTypes.number.isRequired,
 };
