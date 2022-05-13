@@ -27,7 +27,7 @@ function CardSeller({ item }) {
         </div>
         <div>
           <h3 data-testid={ `seller_orders__element-card-price-${item.id}` }>
-            { `R$: ${item.totalPrice}` }
+            { `R$: ${item.totalPrice.replace('.', ',')}` }
           </h3>
         </div>
         <h4 data-testid={ `seller_orders__element-card-address-${item.id}` }>

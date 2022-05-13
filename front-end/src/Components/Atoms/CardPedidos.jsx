@@ -27,7 +27,7 @@ function CardPedidos({ item }) {
         </div>
         <div>
           <h3 data-testid={ `customer_orders__element-card-price-${item.id}` }>
-            { `R$: ${item.totalPrice}` }
+            { `R$: ${item.totalPrice.replace('.', ',')}` }
           </h3>
         </div>
       </div>

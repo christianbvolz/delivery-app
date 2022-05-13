@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CardSeller } from '../Components/Atoms';
-import Navegacao from '../Components/Atoms/Navegacao';
+import { CardSeller, NavSellerAndAdm } from '../Components/Atoms';
 import { SalesRelatedRequests } from '../Services/request';
 
 function VendedorPedidos() {
@@ -21,7 +20,7 @@ function VendedorPedidos() {
 
   return (
     <div>
-      <Navegacao />
+      <NavSellerAndAdm />
       <div>
         vendedoooor
         { loading && <p>Carregando...</p> }

@@ -4,6 +4,7 @@ import Input from './Input';
 import PriceTotal from './PriceTotal';
 import CardPedidos from './CardPedidos';
 import CardSeller from './CardSeller';
+import NavSellerAndAdm from './NavSallerAndAdm';
 
 export {
   Button,
@@ -12,4 +13,5 @@ export {
   PriceTotal,
   CardPedidos,
   CardSeller,
+  NavSellerAndAdm,
 };
