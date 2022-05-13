@@ -9,7 +9,6 @@ function VendedorPedidos() {
     const { token } = JSON.parse(localStorage.getItem('user'));
     setLoading(true);
     const data = await SalesRelatedRequests('/seller', token);
-    console.log('vendedooor', data);
     setPedidos(data);
     setLoading(false);
   };
@@ -22,7 +21,6 @@ function VendedorPedidos() {
     <div>
       <NavSellerAndAdm />
       <div>
-        vendedoooor
         { loading && <p>Carregando...</p> }
         {
           pedidos === undefined
