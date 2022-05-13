@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CardPedidos } from '../Components/Atoms';
+import { CardSeller } from '../Components/Atoms';
 import Navegacao from '../Components/Atoms/Navegacao';
 import { SalesRelatedRequests } from '../Services/request';
 
@@ -9,7 +9,8 @@ function VendedorPedidos() {
   const requestedData = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
     setLoading(true);
-    const data = await SalesRelatedRequests('/orders', token);
+    const data = await SalesRelatedRequests('/seller', token);
+    console.log('vendedooor', data);
     setPedidos(data);
     setLoading(false);
   };
@@ -27,7 +28,7 @@ function VendedorPedidos() {
         {
           pedidos === undefined
             ? <p>Nenhum pedido encontrado</p>
-            : pedidos.map((item) => <CardPedidos key={ item.id } item={ item } />)
+            : pedidos.map((item) => <CardSeller key={ item.id } item={ item } />)
         }
       </div>
     </div>

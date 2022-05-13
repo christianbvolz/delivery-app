@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function CardPedidos({ item }) {
+function CardSeller({ item }) {
   return (
     <Link
       to={ `/customer/orders/${item.id}` }
@@ -10,33 +10,36 @@ function CardPedidos({ item }) {
     >
       <div className="">
         <h5>Pedido:</h5>
-        <h4 data-testid={ `customer_orders__element-order-id-${item.id}` }>
+        <h4 data-testid={ `seller_orders__element-order-id-${item.id}` }>
           { item.id }
         </h4>
       </div>
       <div>
-        <h3 data-testid={ `customer_orders__element-delivery-status-${item.id}` }>
+        <h3 data-testid={ `seller_orders__element-delivery-status-${item.id}` }>
           { item.status }
         </h3>
       </div>
       <div>
         <div>
-          <h3 data-testid={ `customer_orders__element-order-date-${item.id}` }>
+          <h3 data-testid={ `seller_orders__element-order-date-${item.id}` }>
             { item.saleDate }
           </h3>
         </div>
         <div>
-          <h3 data-testid={ `customer_orders__element-card-price-${item.id}` }>
+          <h3 data-testid={ `seller_orders__element-card-price-${item.id}` }>
             { `R$: ${item.totalPrice}` }
           </h3>
         </div>
+        <h4 data-testid={ `seller_orders__element-card-address-${item.id}` }>
+          { `${item.deliveryAdress}, ${item.deliveryNumber}` }
+        </h4>
       </div>
     </Link>
   );
 }
 
-CardPedidos.propTypes = {
-  item: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
+CardSeller.propTypes = {
+  item: PropTypes.objectOf(PropTypes.objectOf).isRequired,
 };
 
-export default CardPedidos;
+export default CardSeller;
