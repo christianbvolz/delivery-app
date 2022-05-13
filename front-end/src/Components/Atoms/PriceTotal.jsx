@@ -6,6 +6,7 @@ import ButtonOnClick from './ButtonOnClick';
 function PriceTotal({ cart }) {
   const history = useHistory();
   const routeChange = () => {
+    localStorage.setItem('cart', JSON.stringify(cart));
     const path = '/customer/checkout';
     history.push(path);
   };
