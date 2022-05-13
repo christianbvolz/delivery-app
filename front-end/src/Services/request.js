@@ -17,10 +17,11 @@ const ProductsRelatedRequests = async (endpoint) => {
   return data;
 };
 
-
 const SalesRelatedRequests = async (endpoint, Authorization) => {
   const { data } = await axios.get((baseURL + endpoint), { headers: { Authorization } });
-  console.log('Dentro de request o token: ', data.token);
+
+  return data;
+};
 
 const saleProductsRelatedRequests = async (endpoint, body, Authorization) => {
   const result = await axios.post(
