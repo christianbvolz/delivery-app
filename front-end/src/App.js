@@ -1,7 +1,15 @@
 import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import { Login, Main, Register, Products, Checkout, Pedidos } from './Pages';
+import {
+  Login,
+  Main,
+  Register,
+  Products,
+  Checkout,
+  Pedidos,
+  VendedorPedidos,
+} from './Pages';
 
 function App() {
   return (
@@ -12,6 +20,7 @@ function App() {
       <Route path="/customer/products" component={ Products } />
       <Route path="/customer/orders" component={ Pedidos } />
       <Route path="/customer/checkout" component={ Checkout } />
+      <Route path="/seller/orders" component={ VendedorPedidos } />
     </Switch>
   );
 }

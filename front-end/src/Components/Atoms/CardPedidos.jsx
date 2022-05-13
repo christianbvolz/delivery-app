@@ -10,7 +10,6 @@ function CardPedidos({ item }) {
       to={ `/customer/orders/${item.id}` }
       className="d-flex flex-row justify-content-between card m-2 me-4 p-2"
     >
-      { console.log('Id >> ', item.id) }
       <div className="">
         <h5>Pedido:</h5>
         <h4 data-testid={ `customer_orders__element-order-id-${item.id}` }>
@@ -39,7 +38,7 @@ function CardPedidos({ item }) {
 }
 
 CardPedidos.propTypes = {
-  item: PropTypes.objectOf(PropTypes.objectOf).isRequired,
+  item: PropTypes.arrayOf(PropTypes.arrayOf).isRequired,
 };
 
 export default CardPedidos;

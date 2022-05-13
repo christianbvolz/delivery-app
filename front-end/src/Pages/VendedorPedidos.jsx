@@ -3,7 +3,7 @@ import { CardPedidos } from '../Components/Atoms';
 import Navegacao from '../Components/Atoms/Navegacao';
 import { SalesRelatedRequests } from '../Services/request';
 
-function Pedidos() {
+function VendedorPedidos() {
   const [loading, setLoading] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const requestedData = async () => {
@@ -22,7 +22,7 @@ function Pedidos() {
     <div>
       <Navegacao />
       <div>
-        { console.log(pedidos) }
+        vendedoooor
         { loading && <p>Carregando...</p> }
         {
           pedidos === undefined
@@ -34,4 +34,4 @@ function Pedidos() {
   );
 }
 
-export default Pedidos;
+export default VendedorPedidos;
