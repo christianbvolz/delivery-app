@@ -2,28 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { updateCart as updateCartAction } from '../Redux/Actions';
 import { saleProductsRelatedRequests, SellersRelatedRequests } from '../Services/request';
 import Navegacao from '../Components/Atoms/Navegacao';
 import TableCheckout from '../Components/Atoms/TableCheckout';
 import CheckoutForm from '../Components/Atoms/CheckoutForm';
+import { updateCartPrice as updateCartPriceAction } from '../Redux/Actions';
 
-function Checkout({ cart, updateCart }) {
+function Checkout({ updateCartPrice, totalPrice }) {
   const history = useHistory();
   const [cartCheckout, setCartCheckout] = useState([]);
   const [deliveryAdress, setDeliveryAdress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([{ name: 'Fulana Pereira' }]);
   const [selectedSeller, setSelectedSeller] = useState('Fulana Pereira');
-  const totalPrice = cartCheckout.reduce((acc, curr) => acc
-      + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
+
+  const calculateCartCurrPrice = (array) => array.reduce((acc, curr) => acc
+    + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 
   const finishOrder = async () => {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
       const order = cartCheckout.map(({ id, quantity }) => ({ id, quantity }));
       const { id: sellerId } = sellers.find(({ name }) => name === selectedSeller);
-      updateCart([]);
+      localStorage.setItem('cart', JSON.stringify([]));
+      updateCartPrice(calculateCartCurrPrice([]));
       const result = await saleProductsRelatedRequests(
         '/order/create',
         {
@@ -48,13 +50,17 @@ function Checkout({ cart, updateCart }) {
 
   const removeProduct = (productId) => {
     const newCartCheckout = cartCheckout.filter(({ id }) => id !== productId);
-    setCartCheckout(newCartCheckout);
+    localStorage.setItem('cart', JSON.stringify([...newCartCheckout]));
+    updateCartPrice(calculateCartCurrPrice(newCartCheckout));
+    setCartCheckout([...newCartCheckout]);
   };
 
   useEffect(() => {
-    setCartCheckout(cart);
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    updateCartPrice(calculateCartCurrPrice(cart));
+    setCartCheckout(cart.filter((product) => product.quantity > 0));
     getSellers();
-  }, [cart]);
+  }, []);
 
   return (
     <div>
@@ -83,16 +89,16 @@ function Checkout({ cart, updateCart }) {
 }
 
 const mapStateToProps = (state) => ({
-  cart: state.cart.cart,
+  totalPrice: state.cart.totalPrice,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCart: (cart) => dispatch(updateCartAction(cart)),
+  updateCartPrice: (value) => dispatch(updateCartPriceAction(value)),
 });
 
 Checkout.propTypes = {
-  cart: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
-  updateCart: PropTypes.func.isRequired,
+  updateCartPrice: PropTypes.func.isRequired,
+  totalPrice: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
