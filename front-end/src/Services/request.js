@@ -19,12 +19,8 @@ const ProductsRelatedRequests = async (endpoint) => {
 
 const SalesRelatedRequests = async (endpoint, Authorization) => {
   const { data } = await axios.get((baseURL + endpoint), { headers: { Authorization } });
-<<<<<<< HEAD
   console.log('Dentro de request o token: ', data.token);
-=======
-
   return data;
->>>>>>> 0682a0d2210a689b21257306bd7870901ef6f26b
 };
 
 const saleProductsRelatedRequests = async (endpoint, body, Authorization) => {
