@@ -1,35 +1,38 @@
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import ButtonOnClick from './ButtonOnClick';
 
-function PriceTotal({ cart }) {
+function PriceTotal({ totalPrice }) {
   const history = useHistory();
   const routeChange = () => {
     const path = '/customer/checkout';
     history.push(path);
   };
 
-  const somaTotal = cart.reduce((acc, curr) => acc
-    + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
   return (
     <div>
       <ButtonOnClick
         testid="customer_products__button-cart"
-        disabled={ somaTotal === '0.00' }
+        disabled={ totalPrice === '0.00' }
         onClick={ routeChange }
       >
         Ver Carrinho: R$
         <span data-testid="customer_products__checkout-bottom-value">
-          { somaTotal.replace('.', ',') }
+          { totalPrice.replace('.', ',') }
         </span>
       </ButtonOnClick>
     </div>
   );
 }
 
+const mapStateToProps = (state) => ({
+  totalPrice: state.cart.totalPrice,
+});
+
 PriceTotal.propTypes = {
-  cart: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  totalPrice: PropTypes.string.isRequired,
 };
 
-export default PriceTotal;
+export default connect(mapStateToProps, null)(PriceTotal);
