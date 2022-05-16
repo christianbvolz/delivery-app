@@ -1,12 +1,44 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { updateCartPrice as updateCartPriceAction } from '../../Redux/Actions';
 import ButtonOnClick from './ButtonOnClick';
-import { updateCart as updateCartAction } from '../../Redux/Actions';
 
-const NOT_FOUND = -1;
-function Card({ item, cart, updateCart }) {
-  const [quantity, setQuantity] = useState(0);
+function Card({ item, cart, updateCartPrice }) {
+  const [quantity, setQuantity] = useState(Number(item.quantity));
+
+  const calculateCartCurrPrice = (array) => array.reduce((acc, curr) => acc
+    + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
+
+  const updateOnlineAndParentCart = (newCart) => {
+    localStorage.setItem('cart', JSON.stringify([...newCart]));
+    updateCartPrice(calculateCartCurrPrice(newCart));
+  };
+
+  const removeOneItem = () => {
+    if (quantity >= 1) {
+      setQuantity(Number(quantity) - 1);
+      cart.find((product) => item.id === product.id).quantity -= 1;
+    } else {
+      setQuantity(0);
+      cart.find((product) => item.id === product.id).quantity = 0;
+    }
+  };
+
+  const addOneItem = () => {
+    setQuantity(Number(quantity) + 1);
+    cart.find((product) => item.id === product.id).quantity += 1;
+  };
+
+  const inputChangeValue = (e) => {
+    if (Number(e.target.value) < 0) {
+      setQuantity(0);
+      cart.find((product) => item.id === product.id).quantity = 0;
+    } else {
+      setQuantity(Number(e.target.value));
+      cart.find((product) => item.id === product.id).quantity = Number(e.target.value);
+    }
+  };
 
   return (
     <div key={ item.id } className="border border-warning rounded m-2 p-3">
@@ -31,17 +63,16 @@ function Card({ item, cart, updateCart }) {
           testid={ `customer_products__button-card-rm-item-${item.id}` }
           disabled={ false }
           onClick={ () => {
-            const index = cart.indexOf(item);
-            if (index !== NOT_FOUND) {
-              setQuantity(Number(quantity) - 1);
-              cart[index].quantity -= 1;
-              if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-              }
-              updateCart([...cart]);
-            } else {
-              setQuantity(0);
-            }
+            removeOneItem();
+            // if (quantity >= 1) {
+            //   setQuantity(Number(quantity) - 1);
+            // } else {
+            //   setQuantity(0);
+            // }
+            // cart.find(item).quantity = quantity;
+            // localStorage.setItem('cart', JSON.stringify([...cart]));
+            updateOnlineAndParentCart(cart);
+            // updateOnlineAndParentCart([...cart]);
           } }
         >
           -
@@ -50,17 +81,26 @@ function Card({ item, cart, updateCart }) {
           type="number"
           data-testid={ `customer_products__input-card-quantity-${item.id}` }
           onChange={ (e) => {
-            setQuantity(e.target.value);
-            const index = cart.indexOf(item);
-            if (index === NOT_FOUND) {
-              item.quantity = Number(e.target.value);
-              cart.push(item);
-            } else if ((Number(e.target.value) <= 0) || (e.target.value === '')) {
-              cart.splice(index, 1);
-            } else {
-              cart[index].quantity = Number(e.target.value);
-            }
-            updateCart([...cart]);
+            inputChangeValue(e);
+            // setQuantity(e.target.value);
+            // if (Number(e.target.value) < 0) {
+            //   setQuantity(0);
+            // } else {
+            //   setQuantity(Number(e.target.value));
+            // }
+            // const index = cart.indexOf(item);
+            // if (index === NOT_FOUND) {
+            //   item.quantity = Number(e.target.value);
+            //   cart.push(item);
+            // } else if ((Number(e.target.value) <= 0) || (e.target.value === '')) {
+            //   cart.splice(index, 1);
+            // } else {
+            //   cart[index].quantity = Number(e.target.value);
+            // }
+            // cart.find(item).quantity = quantity;
+            // localStorage.setItem('cart', JSON.stringify([...cart]));
+            updateOnlineAndParentCart(cart);
+            // updateOnlineAndParentCart([...cart]);
           } }
           value={ quantity }
         />
@@ -68,15 +108,9 @@ function Card({ item, cart, updateCart }) {
           testid={ `customer_products__button-card-add-item-${item.id}` }
           disabled={ false }
           onClick={ () => {
-            setQuantity(Number(quantity) + 1);
-            const index = cart.indexOf(item);
-            if (index === NOT_FOUND) {
-              item.quantity = 1;
-              cart.push(item);
-            } else {
-              cart[index].quantity += 1;
-            }
-            updateCart([...cart]);
+            addOneItem();
+            updateOnlineAndParentCart(cart);
+            // updateOnlineAndParentCart([...cart]);
           } }
         >
           +
@@ -87,7 +121,7 @@ function Card({ item, cart, updateCart }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  updateCart: (cart) => dispatch(updateCartAction(cart)),
+  updateCartPrice: (value) => dispatch(updateCartPriceAction(value)),
 });
 
 Card.propTypes = {
@@ -99,7 +133,7 @@ Card.propTypes = {
     quantity: PropTypes.number.isRequired,
   }).isRequired,
   cart: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
-  updateCart: PropTypes.func.isRequired,
+  updateCartPrice: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Card);
