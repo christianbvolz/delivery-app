@@ -21,7 +21,7 @@ function Products({ updateCartPrice }) {
       ...item,
       quantity: 0,
     }));
-    if (onlineCart.length === dataWithQuantity.length) {
+    if (onlineCart?.length === dataWithQuantity.length) {
       updateCartPrice(calculateCartCurrPrice(onlineCart));
       setLoading(false);
       return setCart(onlineCart);
