@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { saleProductsRelatedRequests, SellersRelatedRequests } from '../Services/request';
 import Navegacao from '../Components/Atoms/Navegacao';
-import TableCheckout from '../Components/Atoms/TableCheckout';
+import Table from '../Components/Atoms/Table';
 import CheckoutForm from '../Components/Atoms/CheckoutForm';
 
 function Checkout() {
@@ -59,9 +59,10 @@ function Checkout() {
   return (
     <div>
       <Navegacao />
-      <TableCheckout
-        cartCheckout={ cartCheckout }
+      <Table
+        products={ cartCheckout }
         removeProduct={ removeProduct }
+        testId="customer_checkout"
       />
       <h1
         data-testid="customer_checkout__element-order-total-price"
