@@ -11,6 +11,16 @@ const Login = () => {
   const [showError, setShowError] = useState(false); // This is a false boolean if there's no error, or a string (and thus true) that shows the error
   const history = useHistory();
 
+  const redirectPage = (userEmail) => {
+    if (userEmail === 'fulana@deliveryapp.com') {
+      return '/seller/orders';
+    }
+    if (userEmail === 'dm@deliveryapp.com') {
+      return '/admin/manage';
+    }
+    return '/customer/products';
+  };
+
   const routeChange = () => {
     const path = '/register';
     history.push(path);
@@ -30,7 +40,7 @@ const Login = () => {
     }
   };
 
-  return isLogged ? (<Redirect to="/customer/products" />) : (
+  return isLogged ? (<Redirect to={ redirectPage(email) } />) : (
     <main>
       <form onSubmit={ loginSubmit }>
         <Input
