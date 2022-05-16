@@ -8,20 +8,28 @@ function CardPedidos({ item }) {
       to={ `/customer/orders/${item.id}` }
       className="d-flex flex-row justify-content-between card m-2 me-4 p-2"
     >
-      <div className="" data-testid={ `customer_orders__element-order-id-${item.id}` }>
-        pedido:
-        { item.id }
-      </div>
-      <div data-testid={ `customer_orders__element-delivery-status-${item.id}` }>
-        { item.status }
+      { console.log('Id >> ', item.id) }
+      <div className="">
+        <h5>Pedido:</h5>
+        <h4 data-testid={ `customer_orders__element-order-id-${item.id}` }>
+          { item.id }
+        </h4>
       </div>
       <div>
-        <div data-testid={ `customer_orders__element-order-date-${item.id}` }>
-          { item.saleDate }
+        <h3 data-testid={ `customer_orders__element-delivery-status-${item.id}` }>
+          { item.status }
+        </h3>
+      </div>
+      <div>
+        <div>
+          <h3 data-testid={ `customer_orders__element-order-date-${item.id}` }>
+            { item.saleDate }
+          </h3>
         </div>
         <div>
-          R$:
-          { item.totalPrice.toFixed(2) }
+          <h3 data-testid={ `customer_orders__element-card-price-${item.id}` }>
+            { `R$: ${item.totalPrice}` }
+          </h3>
         </div>
       </div>
     </Link>
