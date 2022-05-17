@@ -8,8 +8,19 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLogged, setIsLogged] = useState(false);
+  const [role, setRole] = useState('');
   const [showError, setShowError] = useState(false); // This is a false boolean if there's no error, or a string (and thus true) that shows the error
   const history = useHistory();
+
+  const redirectPage = (roleInfo) => {
+    if (roleInfo === 'seller') {
+      return '/seller/orders';
+    }
+    if (roleInfo === 'administrator') {
+      return '/admin/manage';
+    }
+    return '/customer/products';
+  };
 
   const routeChange = () => {
     const path = '/register';
@@ -22,6 +33,7 @@ const Login = () => {
       const endpoint = '/login';
       const user = await userRelatedRequests(endpoint, { email, password });
       localStorage.setItem('user', JSON.stringify(user));
+      setRole(user.role);
       setIsLogged(true);
     } catch (error) {
       setShowError(error.response.data.message);
@@ -30,7 +42,7 @@ const Login = () => {
     }
   };
 
-  return isLogged ? (<Redirect to="/customer/products" />) : (
+  return isLogged ? (<Redirect to={ redirectPage(role) } />) : (
     <main>
       <form onSubmit={ loginSubmit }>
         <Input

@@ -5,6 +5,7 @@ const UserRouter = require('../Routes/UserRouter');
 const ProductsRouter = require('../Routes/ProductsRouter');
 const SalesProductsRouter = require('../Routes/SalesProductsRouter');
 const SaleRouter = require('../Routes/SalesRouter');
+const SellerRouter = require('../Routes/SellerRouter');
 
 const MiddlewareError = require('../Middlewares/MiddlewareError');
 
@@ -18,6 +19,7 @@ app.use('/', ProductsRouter);
 app.use('/order', SalesProductsRouter);
 app.use('/orders', SaleRouter);
 app.use('/products', ProductsRouter);
+app.use('/seller', SellerRouter);
 app.use(MiddlewareError);
 
 app.get('/coffee', (_req, res) => res.status(418).end());
