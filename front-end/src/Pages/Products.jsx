@@ -1,51 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import Navegacao from '../Components/Atoms/Navegacao';
 import { ProductsRelatedRequests } from '../Services/request';
 import { PriceTotal } from '../Components/Atoms';
 import Card from '../Components/Atoms/Card';
+import { updateCartPrice as updateCartPriceAction } from '../Redux/Actions';
 
-function Products({ cart }) {
-  const [products, setProducts] = useState([]);
+function Products({ updateCartPrice }) {
+  const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
-  const dataRelatedRequests = async () => {
-    setLoading(true);
+
+  const calculateCartCurrPrice = (array) => array.reduce((acc, curr) => acc
+    + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
+
+  const initialCartSetup = async () => {
+    const onlineCart = JSON.parse(localStorage.getItem('cart'));
     const data = await ProductsRelatedRequests('/products');
     const dataWithQuantity = data.map((item) => ({
       ...item,
       quantity: 0,
     }));
-    setProducts(dataWithQuantity);
+    if (onlineCart?.length === dataWithQuantity.length) {
+      updateCartPrice(calculateCartCurrPrice(onlineCart));
+      setLoading(false);
+      return setCart(onlineCart);
+    }
+    setCart(dataWithQuantity);
+    localStorage.setItem('cart', JSON.stringify(dataWithQuantity));
     setLoading(false);
   };
 
   useEffect(() => {
-    dataRelatedRequests();
+    initialCartSetup();
   }, []);
 
   return (
     <div>
       <Navegacao />
       <main className="d-flex flex-wrap justify-content-between">
-        {
-          products.map((item) => <Card item={ item } key={ item.id } cart={ cart } />)
-        }
-        { loading && <p>Carregando...</p> }
+        { !loading && cart.map((item) => (
+          <Card
+            item={ item }
+            key={ item.id }
+            cart={ cart }
+          />
+        )) }
       </main>
       <div>
-        <PriceTotal cart={ cart } />
+        <PriceTotal />
       </div>
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  cart: state.cart.cart,
+const mapDispatchToProps = (dispatch) => ({
+  updateCartPrice: (value) => dispatch(updateCartPriceAction(value)),
 });
 
 Products.propTypes = {
-  cart: PropTypes.arrayOf(PropTypes.objectOf).isRequired,
+  updateCartPrice: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Products);
+export default connect(null, mapDispatchToProps)(Products);

@@ -10,6 +10,8 @@ import {
   Pedidos,
   VendedorPedidos,
 } from './Pages';
+import OrderDetails from './Pages/OrderDetails';
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <Route path="/login" component={ Login } />
       <Route path="/register" component={ Register } />
       <Route path="/customer/products" component={ Products } />
+      <Route path="/customer/orders/:id" component={ OrderDetails } />
       <Route path="/customer/orders" component={ Pedidos } />
       <Route path="/customer/checkout" component={ Checkout } />
       <Route path="/seller/orders" component={ VendedorPedidos } />
