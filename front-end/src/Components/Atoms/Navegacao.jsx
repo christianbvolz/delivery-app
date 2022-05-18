@@ -15,6 +15,7 @@ function Navegacao() {
 
   const logout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('cart');
     history.push('/login');
   };
 
