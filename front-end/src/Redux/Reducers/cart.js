@@ -1,17 +1,17 @@
 import {
-  UPDATE_CART,
+  UPDATE_CART_PRICE,
 } from '../Actions';
 
 const INITIAL_STATE = {
-  cart: [],
+  totalPrice: '0.00',
 };
 
 function cartReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case UPDATE_CART:
+  case UPDATE_CART_PRICE:
     return {
       ...state,
-      cart: action.payload,
+      totalPrice: action.payload,
     };
   default:
     return state;

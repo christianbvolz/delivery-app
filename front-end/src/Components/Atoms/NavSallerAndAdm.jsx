@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import ButtonOnClick from './ButtonOnClick';
 
-function Navegacao() {
+function NavSellerAndAdm() {
   const [userName, setUserName] = useState('');
   const history = useHistory();
 
@@ -22,20 +22,11 @@ function Navegacao() {
         <ul className="navbar-nav">
           <li className="nav-item p-3">
             <Link
-              to="/customer/products"
-              data-testid="customer_products__element-navbar-link-products"
-              className="nav-link active"
-            >
-              PRODUTOS
-            </Link>
-          </li>
-          <li className="nav-item p-3">
-            <Link
-              to="/customer/orders"
+              to="/seller/orders"
               data-testid="customer_products__element-navbar-link-orders"
               className="nav-link active"
             >
-              MEUS PEDIDOS
+              PEDIDOS
             </Link>
           </li>
           <li>
@@ -60,4 +51,4 @@ function Navegacao() {
   );
 }
 
-export default Navegacao;
+export default NavSellerAndAdm;
