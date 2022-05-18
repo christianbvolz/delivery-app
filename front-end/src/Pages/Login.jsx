@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { Button, ButtonOnClick, Input } from '../Components/Atoms';
 import { validateEmail, validatePassword } from '../Utils/Verifications/verify';
@@ -37,10 +37,17 @@ const Login = () => {
       setIsLogged(true);
     } catch (error) {
       setShowError(error.response.data.message);
-      // setFailedTryLogin(true);
-      // setIsLogged(false);
+      setIsLogged(false);
     }
   };
+
+  useEffect(() => {
+    const localUser = JSON.parse(localStorage.getItem('user'));
+    if (localUser) {
+      setRole(localUser.role);
+      setIsLogged(true);
+    }
+  }, []);
 
   return isLogged ? (<Redirect to={ redirectPage(role) } />) : (
     <main>
