@@ -52,6 +52,7 @@ function Checkout() {
 
   useEffect(() => {
     const cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
+    console.log(cartLocalStorage);
     if (cartLocalStorage) setCartCheckout(cartLocalStorage);
     getSellers();
   }, []);

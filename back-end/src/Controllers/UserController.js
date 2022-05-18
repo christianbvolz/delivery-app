@@ -1,5 +1,6 @@
 const UserService = require('../Services/UserService');
 const { generateToken } = require('../Token');
+const { verifyToken } = require('../Token');
 
 const getLogin = async (req, res, next) => {
   const { email, password } = req.body;
@@ -36,6 +37,18 @@ const register = async (req, res, next) => {
   return res.status(201).json({ token, user: createdUser });
 };
 
+const validateUser = async (req, res, next) => {
+  const { authorization } = req.headers;
+
+  if (!authorization) return next({ error: 400, message: 'UNAUTHORIZED' });
+
+  const authorized = verifyToken(authorization);
+
+  if (!authorized) return next({ error: 400, message: 'UNAUTHORIZED' });
+
+  return res.status(200).json(authorized);
+};
+
 const getSellers = async (_req, res) => {
   const sellers = await UserService.getSellers();
 
@@ -46,4 +59,5 @@ module.exports = {
   getLogin,
   register,
   getSellers,
+  validateUser,
 };

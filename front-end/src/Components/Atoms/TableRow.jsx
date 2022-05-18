@@ -33,15 +33,16 @@ export default function TableRow({ product, cartIndex, removeProduct, testId }) 
       </td>
       {
         removeProduct
-        && <td>
-          <ButtonOnClick
-            testid={ `${testId}__element-order-table-remove-${cartIndex}` }
-            disabled={ false }
-            onClick={ () => removeProduct(product.id) }
-          >
-            Remover item
-          </ButtonOnClick>
-        </td>
+        && (
+          <td>
+            <ButtonOnClick
+              testid={ `${testId}__element-order-table-remove-${cartIndex}` }
+              disabled={ false }
+              onClick={ () => removeProduct(product.id) }
+            >
+              Remover item
+            </ButtonOnClick>
+          </td>)
       }
     </tr>
   );

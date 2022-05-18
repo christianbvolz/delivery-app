@@ -37,7 +37,7 @@ const SellersRelatedRequests = async (endpoint) => {
   return data;
 };
 
-const OrderDetailsRelatedRequests = async (endpoint, Authorization) => {
+const getRequests = async (endpoint, Authorization) => {
   const { data } = await axios.get((baseURL + endpoint), { headers: { Authorization } });
 
   return data;
@@ -56,6 +56,6 @@ export {
   SalesRelatedRequests,
   saleProductsRelatedRequests,
   SellersRelatedRequests,
-  OrderDetailsRelatedRequests,
+  getRequests,
   setDeliveryStatusRelatedRequests,
 };

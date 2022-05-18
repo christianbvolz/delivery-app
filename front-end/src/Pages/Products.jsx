@@ -1,65 +1,60 @@
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import Navegacao from '../Components/Atoms/Navegacao';
 import { ProductsRelatedRequests } from '../Services/request';
 import { PriceTotal } from '../Components/Atoms';
 import Card from '../Components/Atoms/Card';
-import { updateCartPrice as updateCartPriceAction } from '../Redux/Actions';
 
-function Products({ updateCartPrice }) {
+function Products() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const totalPrice = cart.reduce((acc, curr) => acc
+      + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 
-  const calculateCartCurrPrice = (array) => array.reduce((acc, curr) => acc
-    + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
+  const addProductToCart = (product) => {
+    const newCart = cart.filter(({ id }) => id !== product.id);
+    setCart([...newCart, product]);
+    localStorage.setItem('cart', JSON.stringify([...newCart, product]));
+  };
 
-  const initialCartSetup = async () => {
-    const onlineCart = JSON.parse(localStorage.getItem('cart'));
+  const removeProductCart = (product) => {
+    const newCart = cart.filter(({ id }) => id !== product.id);
+    setCart(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  };
+
+  const getProducts = async () => {
+    const localStorageCart = JSON.parse(localStorage.getItem('cart'));
     const data = await ProductsRelatedRequests('/products');
-    const dataWithQuantity = data.map((item) => ({
-      ...item,
-      quantity: 0,
-    }));
-    if (onlineCart?.length === dataWithQuantity.length) {
-      updateCartPrice(calculateCartCurrPrice(onlineCart));
-      setLoading(false);
-      return setCart(onlineCart);
-    }
-    setCart(dataWithQuantity);
-    localStorage.setItem('cart', JSON.stringify(dataWithQuantity));
+    setProducts(data);
     setLoading(false);
+    if (localStorageCart) setCart(localStorageCart);
   };
 
   useEffect(() => {
-    initialCartSetup();
+    getProducts();
   }, []);
 
   return (
     <div>
       <Navegacao />
       <main className="d-flex flex-wrap justify-content-between">
-        { !loading && cart.map((item) => (
+        { !loading && products.map((item) => (
           <Card
             item={ item }
             key={ item.id }
-            cart={ cart }
+            addProductToCart={ addProductToCart }
+            removeProductCart={ removeProductCart }
           />
         )) }
       </main>
       <div>
-        <PriceTotal />
+        <PriceTotal
+          totalPrice={ totalPrice }
+        />
       </div>
     </div>
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  updateCartPrice: (value) => dispatch(updateCartPriceAction(value)),
-});
-
-Products.propTypes = {
-  updateCartPrice: PropTypes.func.isRequired,
-};
-
-export default connect(null, mapDispatchToProps)(Products);
+export default Products;

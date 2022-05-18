@@ -4,10 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import Table from '../Components/Atoms/Table';
 import Navegacao from '../Components/Atoms/Navegacao';
 import { ButtonOnClick } from '../Components/Atoms';
-import {
-  OrderDetailsRelatedRequests,
-  setDeliveryStatusRelatedRequests,
-} from '../Services/request';
+import { getRequests, setDeliveryStatusRelatedRequests } from '../Services/request';
 
 const OrderDetails = () => {
   const history = useHistory();
@@ -41,22 +38,22 @@ const OrderDetails = () => {
     }
   };
 
-  const fetchOrderDetails = async () => {
-    try {
-      const endPoint = `/orders/${saleId}`;
-      if (!JSON.parse(localStorage.getItem('user')).token) return history.push('/login');
-      const { token } = JSON.parse(localStorage.getItem('user'));
-      const order = await OrderDetailsRelatedRequests(endPoint, token);
-      console.log(order);
-      setOrderDetails(order);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchOrderDetails = () => {
+      try {
+        const endPoint = `/orders/${saleId}`;
+        if (!JSON.parse(localStorage.getItem('user')).token) {
+          return history.push('/login');
+        }
+        const { token } = JSON.parse(localStorage.getItem('user'));
+        getRequests(endPoint, token)
+          .then((response) => setOrderDetails(response));
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchOrderDetails();
-  }, []);
+  }, [history, saleId]);
 
   return (
     <div>
