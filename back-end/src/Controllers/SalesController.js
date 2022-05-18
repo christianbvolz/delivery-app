@@ -52,7 +52,6 @@ const updateStatus = async (req, res, next) => {
 
   if (!saleStatus) return next({ error: 404, message: 'Sale not Found' });
 
-
   return res.status(201).json(saleStatus);
 };
 
