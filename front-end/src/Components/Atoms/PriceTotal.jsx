@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import ButtonOnClick from './ButtonOnClick';
@@ -27,12 +26,8 @@ function PriceTotal({ totalPrice }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  totalPrice: state.cart.totalPrice,
-});
-
 PriceTotal.propTypes = {
   totalPrice: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, null)(PriceTotal);
+export default PriceTotal;

@@ -1,4 +1,4 @@
-const SalerService = require('../Services/SalerController');
+const SalerService = require('../Services/SalerService');
 const { verifyToken } = require('../Token');
 
 const getAll = async (req, res, next) => {  

@@ -37,6 +37,18 @@ const SellersRelatedRequests = async (endpoint) => {
   return data;
 };
 
+const getRequests = async (endpoint, Authorization) => {
+  const { data } = await axios.get((baseURL + endpoint), { headers: { Authorization } });
+
+  return data;
+};
+
+const setDeliveryStatusRelatedRequests = async (endpoint, Authorization) => {
+  const { data } = await axios.post((baseURL + endpoint), { headers: { Authorization } });
+
+  return data;
+};
+
 export {
   userRelatedRequests,
   setToken,
@@ -44,4 +56,6 @@ export {
   SalesRelatedRequests,
   saleProductsRelatedRequests,
   SellersRelatedRequests,
+  getRequests,
+  setDeliveryStatusRelatedRequests,
 };

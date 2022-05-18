@@ -7,8 +7,10 @@ function Navegacao() {
   const history = useHistory();
 
   useEffect(() => {
-    const { name } = JSON.parse(localStorage.getItem('user'));
-    setUserName(name);
+    if (localStorage.getItem('user')) {
+      const { name } = JSON.parse(localStorage.getItem('user'));
+      setUserName(name);
+    }
   }, []);
 
   const logout = () => {
