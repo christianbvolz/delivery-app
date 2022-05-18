@@ -39,7 +39,7 @@ const Login = () => {
       setShowError(error.response.data.message);
       setIsLogged(false);
     }
-  }
+  };
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem('user'));
