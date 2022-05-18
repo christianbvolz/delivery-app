@@ -12,7 +12,6 @@ import {
 } from './Pages';
 import OrderDetails from './Pages/OrderDetails';
 
-
 function App() {
   return (
     <Switch>

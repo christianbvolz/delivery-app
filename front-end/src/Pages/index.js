@@ -7,7 +7,6 @@ import Checkout from './Checkout';
 import VendedorPedidos from './VendedorPedidos';
 import OrderDetails from './OrderDetails';
 
-
 export {
   Login,
   Main,
