@@ -24,7 +24,7 @@ function Checkout({ updateCartPrice, totalPrice }) {
       const { token } = JSON.parse(localStorage.getItem('user'));
       const order = cartCheckout.map(({ id, quantity }) => ({ id, quantity }));
       const { id: sellerId } = sellers.find(({ name }) => name === selectedSeller);
-      localStorage.setItem('cart', JSON.stringify([]));
+      localStorage.removeItem('cart');
       updateCartPrice(calculateCartCurrPrice([]));
       const result = await saleProductsRelatedRequests(
         '/order/create',
