@@ -11,7 +11,7 @@ function Checkout() {
   const [deliveryAdress, setDeliveryAdress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([{ name: 'Fulana Pereira' }]);
-  const [selectedSeller, setSelectedSeller] = useState('Fulana Pereira');
+  const [selectedSeller, setSelectedSeller] = useState(2);
   const totalPrice = cartCheckout.reduce((acc, curr) => acc
       + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 
@@ -19,12 +19,11 @@ function Checkout() {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
       const order = cartCheckout.map(({ id, quantity }) => ({ id, quantity }));
-      const { id: sellerId } = sellers.find(({ name }) => name === selectedSeller);
       const result = await saleProductsRelatedRequests(
         '/order/create',
         {
           order,
-          sellerId,
+          sellerId: selectedSeller,
           totalPrice,
           deliveryAdress,
           deliveryNumber,
@@ -52,7 +51,6 @@ function Checkout() {
 
   useEffect(() => {
     const cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
-    console.log(cartLocalStorage);
     if (cartLocalStorage) setCartCheckout(cartLocalStorage);
     getSellers();
   }, []);

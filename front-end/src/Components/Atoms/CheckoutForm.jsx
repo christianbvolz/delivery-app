@@ -16,11 +16,11 @@ export default function CheckoutForm({
     <div>
       <select
         data-testid="customer_checkout__select-seller"
-        onChange={ ({ target }) => setSelectedSeller(target.value) }
+        onChange={ ({ target }) => setSelectedSeller(+target.value) }
         value={ selectedSeller }
       >
-        {sellers.map(({ name }) => (
-          <option value={ name } key={ name }>{ name }</option>
+        {sellers.map(({ name, id }) => (
+          <option value={ id } key={ name }>{ name }</option>
         ))}
       </select>
       <Input
@@ -58,7 +58,7 @@ CheckoutForm.propTypes = {
     password: PropTypes.string,
     role: PropTypes.string,
   })).isRequired,
-  selectedSeller: PropTypes.string.isRequired,
+  selectedSeller: PropTypes.number.isRequired,
   setSelectedSeller: PropTypes.func.isRequired,
   deliveryAdress: PropTypes.string.isRequired,
   setDeliveryAdress: PropTypes.func.isRequired,
