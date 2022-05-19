@@ -12,10 +12,10 @@ const buildModelUser = (sequelize, DataTypes) => {
     });
   
     User.associate = (models) => {
-      User.hasMany(models.Sale, { targetKey: 'userId', as: 'user_id' });
-      User.hasMany(models.Sale, { targetKey: 'sellerId', as: 'seller_id' });
-      models.Sale.belongsTo(User, { foreignKey: 'userId', as: 'user_id' });
-      models.Sale.belongsTo(User, { foreignKey: 'sellerId', as: 'seller_id' });
+      User.hasMany(models.Sale, { targetKey: 'user_id' });
+      User.hasMany(models.Sale, { targetKey: 'seller_id' });
+      models.Sale.belongsTo(User, { foreignKey: 'user_id' });
+      models.Sale.belongsTo(User, { foreignKey: 'seller_id' });
     };
   
     return User;

@@ -1,7 +1,13 @@
 const buildModelSalesProducts = (sequelize, DataTypes) => {
   const SaleProduct = sequelize.define('SaleProduct', {
-    saleId: DataTypes.INTEGER,
-    productId: DataTypes.INTEGER,
+    saleId: {
+      type: DataTypes.INTEGER,
+      field: 'sale_id'
+    },
+    productId: {
+      type: DataTypes.INTEGER,
+      field: 'product_id'
+    },
     quantity: DataTypes.INTEGER,
   }, {
     sequelize,
