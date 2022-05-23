@@ -1,6 +1,6 @@
 const buildModelSale = (sequelize, DataTypes) => {
     const Sale = sequelize.define('Sale', {
-      userId: {
+      UserId: {
         type: DataTypes.INTEGER,
         field: 'user_id'
       },
@@ -12,7 +12,7 @@ const buildModelSale = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL,
         field: 'total_price'
       },
-      deliveryAdress: {
+      deliveryAddress: {
         type: DataTypes.STRING,
         field: 'delivery_address'
       },

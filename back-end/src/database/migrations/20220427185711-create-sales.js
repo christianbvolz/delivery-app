@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
+      UserId: {
         field: 'user_id',
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -30,7 +30,7 @@ module.exports = {
         field: 'total_price',
         type: Sequelize.DECIMAL(9, 2)
       },
-      deliveryAdress: {
+      deliveryAddress: {
         field: 'delivery_address',
         type: Sequelize.STRING
       },

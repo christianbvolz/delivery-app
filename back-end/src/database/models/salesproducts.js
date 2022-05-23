@@ -19,16 +19,16 @@ const buildModelSalesProducts = (sequelize, DataTypes) => {
     // Sales -> Products
     models.Sale.belongsToMany(models.Product, {
       through: SaleProduct,
-      foreignKey: 'productId',
-      otherKey: 'saleId',
+      foreignKey: 'product_id',
+      otherKey: 'sale_id',
       as: 'products',
     });
 
     // Products -> Sales
     models.Product.belongsToMany(models.Sale, {
       through: SaleProduct,
-      foreignKey: 'saleId',
-      otherKey: 'productId',
+      foreignKey: 'sale_id',
+      otherKey: 'product_id',
       as: 'sales',
     });
   };

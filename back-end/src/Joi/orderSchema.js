@@ -17,9 +17,9 @@ const orderSchema = Joi.object({
 
   totalPrice: Joi.number().positive().required(),
 
-  deliveryAdress: Joi.string().required().messages({
-    'string.base': 'DeliveryAdress must be a string',
-    'any.required': 'DeliveryAdress is required',
+  deliveryAddress: Joi.string().required().messages({
+    'string.base': 'DeliveryAddress must be a string',
+    'any.required': 'DeliveryAddress is required',
   }),
 
   deliveryNumber: Joi.string().required().messages({

@@ -31,17 +31,18 @@ const getSale = async (req, res, next) => {
 
   const { sellerId, totalPrice, saleDate, status } = sale;
 
-  const products = sale.products
-    .map(({ id, name, price, urlImage, SaleProduct: { quantity } }) => 
-  ({ id, name, price, urlImage, quantity }));
+  // const products = sale.products
+  //   .map(({ id, name, price, urlImage, SaleProduct: { quantity } }) => 
+  // ({ id, name, price, urlImage, quantity }));
 
+  const { products } = sale;
   return res.status(200).json({ sellerId, totalPrice, saleDate, status, products });
 };
 
 const updateStatus = async (req, res, next) => {
   const { authorization } = req.headers;
   const { id: saleId } = req.params;
-  console.log(authorization);
+
   if (!authorization) return next({ error: 401, message: 'UNAUTHORIZED' });
 
   const authorized = verifyToken(authorization);

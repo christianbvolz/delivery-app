@@ -8,10 +8,10 @@ import CheckoutForm from '../Components/Atoms/CheckoutForm';
 function Checkout() {
   const history = useHistory();
   const [cartCheckout, setCartCheckout] = useState([]);
-  const [deliveryAdress, setDeliveryAdress] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([{ name: 'Fulana Pereira' }]);
-  const [selectedSeller, setSelectedSeller] = useState(2);
+  const [sellerId, setSellerId] = useState(2);
   const totalPrice = cartCheckout.reduce((acc, curr) => acc
       + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 
@@ -23,15 +23,14 @@ function Checkout() {
         '/order/create',
         {
           order,
-          sellerId: selectedSeller,
+          sellerId,
           totalPrice,
-          deliveryAdress,
+          deliveryAddress,
           deliveryNumber,
         },
         token,
       );
       localStorage.removeItem('cart');
-      console.log(result);
       history.push(`/customer/orders/${result.data}`);
     } catch (error) {
       console.log({ error: error.response.data.message });
@@ -70,10 +69,10 @@ function Checkout() {
       </h1>
       <CheckoutForm
         sellers={ sellers }
-        selectedSeller={ selectedSeller }
-        setSelectedSeller={ setSelectedSeller }
-        deliveryAdress={ deliveryAdress }
-        setDeliveryAdress={ setDeliveryAdress }
+        sellerId={ sellerId }
+        setSellerId={ setSellerId }
+        deliveryAddress={ deliveryAddress }
+        setDeliveryAddress={ setDeliveryAddress }
         deliveryNumber={ deliveryNumber }
         setDeliveryNumber={ setDeliveryNumber }
         finishOrder={ finishOrder }

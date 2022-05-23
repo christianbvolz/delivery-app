@@ -1,12 +1,12 @@
 const { Sale, Product } = require('../database/models');
 
-const create = async ({ userId, sellerId, totalPrice, deliveryAdress, deliveryNumber }) => {
+const create = async ({ UserId, sellerId, totalPrice, deliveryAddress, deliveryNumber }) => {
   const { dataValues: { id: saleId } } = await
     Sale.create({
-      userId,
+      UserId,
       sellerId,
       totalPrice,
-      deliveryAdress,
+      deliveryAddress,
       deliveryNumber,
     });
 
@@ -28,9 +28,9 @@ const getSale = async (id) => {
     where: {
       id,
     },
-    include: { model: Product, as: 'products' },
+    include: [{ model: Product, as: 'products' }],
   });
-  
+  console.log(dataValues);
   return dataValues;
 };
 

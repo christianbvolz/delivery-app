@@ -4,7 +4,6 @@ const baseURL = `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`;
 
 const userRelatedRequests = async (endpoint, body) => {
   const { data } = await axios.post((baseURL + endpoint), body);
-  console.log('Dentro de request o token: ', data.token);
   return data;
 };
 
@@ -19,7 +18,7 @@ const ProductsRelatedRequests = async (endpoint) => {
 
 const SalesRelatedRequests = async (endpoint, Authorization) => {
   const { data } = await axios.get((baseURL + endpoint), { headers: { Authorization } });
-  console.log('Dentro de request o token: ', data.token);
+
   return data;
 };
 
@@ -38,9 +37,10 @@ const SellersRelatedRequests = async (endpoint) => {
 };
 
 const getRequests = async (endpoint, Authorization) => {
-  const { data } = await axios.get((baseURL + endpoint), { headers: { Authorization } });
+  const { result } = await axios
+    .get((baseURL + endpoint), { headers: { Authorization } });
 
-  return data;
+  return result;
 };
 
 const setDeliveryStatusRelatedRequests = async (endpoint, Authorization) => {
