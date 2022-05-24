@@ -37,13 +37,13 @@ const SellersRelatedRequests = async (endpoint) => {
 };
 
 const getRequests = async (endpoint, Authorization) => {
-  const { result } = await axios
+  const result = await axios
     .get((baseURL + endpoint), { headers: { Authorization } });
 
-  return result;
+  return result.data;
 };
 
-const setDeliveryStatusRelatedRequests = async (endpoint, Authorization) => {
+const setStatusRequests = async (endpoint, Authorization) => {
   const { data } = await axios.post((baseURL + endpoint), { headers: { Authorization } });
 
   return data;
@@ -57,5 +57,5 @@ export {
   saleProductsRelatedRequests,
   SellersRelatedRequests,
   getRequests,
-  setDeliveryStatusRelatedRequests,
+  setStatusRequests,
 };

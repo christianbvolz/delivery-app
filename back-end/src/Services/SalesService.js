@@ -1,9 +1,9 @@
-const { Sale, Product } = require('../database/models');
+const { Sale, Product, User } = require('../database/models');
 
-const create = async ({ UserId, sellerId, totalPrice, deliveryAddress, deliveryNumber }) => {
+const create = async ({ userId, sellerId, totalPrice, deliveryAddress, deliveryNumber }) => {
   const { dataValues: { id: saleId } } = await
     Sale.create({
-      UserId,
+      userId,
       sellerId,
       totalPrice,
       deliveryAddress,
@@ -24,14 +24,20 @@ const getAll = async (userId) => {
 };
 
 const getSale = async (id) => {
-  const dataValues = await Sale.findOne({
-    where: {
-      id,
-    },
-    include: [{ model: Product, as: 'products' }],
-  });
-  console.log(dataValues);
-  return dataValues;
+  const [result] = await Sale.findAll({
+    where: { id },
+    include: [{
+        model: Product,
+        as: 'products',
+        through: { attributes: ['quantity'] }, 
+    }, {
+        model: User,
+        as: 'seller',
+        attributes: { exclude: ['password'] },
+    }],
+});
+
+  return result;
 };
 
 const updateStatus = async (id) => {
