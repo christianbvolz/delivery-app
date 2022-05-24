@@ -40,6 +40,7 @@ const getSale = async (req, res, next) => {
 
 const updateStatus = async (req, res, next) => {
   // const { Authorization } = req.headers;
+  const { status } = req.body;
   const { id: saleId } = req.params;
 
   // if (!Authorization) return next({ error: 400, message: 'UNAUTHORIZED' });
@@ -48,7 +49,7 @@ const updateStatus = async (req, res, next) => {
 
   // if (!authorized) return next({ error: 400, message: 'UNAUTHORIZED' });
 
-  const saleStatus = await SalesService.updateStatus(+saleId);
+  const saleStatus = await SalesService.updateStatus(+saleId, status);
 
   if (!saleStatus) return next({ error: 404, message: 'Sale not Found' });
 

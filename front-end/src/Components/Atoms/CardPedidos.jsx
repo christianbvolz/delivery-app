@@ -3,6 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function CardPedidos({ item }) {
+  function formatDate(date) {
+    const newDate = new Date(date);
+    const NINE = 9;
+    const day = newDate.getDate();
+    const month = newDate.getMonth() + 1 > NINE
+      ? newDate.getMonth() + 1 : `0${newDate.getMonth() + 1}`;
+    const year = newDate.getFullYear();
+    return [day, month, year].join('/');
+  }
   return (
     <Link
       to={ `/customer/orders/${item.id}` }
@@ -22,7 +31,7 @@ function CardPedidos({ item }) {
       <div>
         <div>
           <h3 data-testid={ `customer_orders__element-order-date-${item.id}` }>
-            { item.saleDate }
+            { formatDate(item.saleDate) }
           </h3>
         </div>
         <div>

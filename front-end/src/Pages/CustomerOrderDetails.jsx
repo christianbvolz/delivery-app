@@ -6,7 +6,7 @@ import Navegacao from '../Components/Atoms/Navegacao';
 import { ButtonOnClick } from '../Components/Atoms';
 import { getRequests, setStatusRequests } from '../Services/request';
 
-const OrderDetails = () => {
+const CustomerOrderDetails = () => {
   const history = useHistory();
   const { id: saleId } = useParams();
   const [orderDetails, setOrderDetails] = useState({
@@ -30,9 +30,9 @@ const OrderDetails = () => {
       const endPoint = `/orders/${saleId}`;
       if (!JSON.parse(localStorage.getItem('user')).token) return history.push('/login');
       const { token } = JSON.parse(localStorage.getItem('user'));
-      const status = await setStatusRequests(endPoint, token);
-      console.log(status);
-      setOrderDetails({ ...orderDetails, status: 'entregue' });
+      const status = 'Entregue';
+      await setStatusRequests(endPoint, { status }, token);
+      setOrderDetails({ ...orderDetails, status });
     } catch (error) {
       console.log({ error: error.response.data.message });
       console.log(error);
@@ -46,6 +46,7 @@ const OrderDetails = () => {
         if (!JSON.parse(localStorage.getItem('user')).token) {
           return history.push('/login');
         }
+
         const { token } = JSON.parse(localStorage.getItem('user'));
         await getRequests(endPoint, token)
           .then((response) => setOrderDetails(response));
@@ -82,7 +83,7 @@ const OrderDetails = () => {
           { orderDetails.status }
         </h3>
         <ButtonOnClick
-          disabled={ orderDetails.status !== 'Saiu para entrega' }
+          disabled={ orderDetails.status !== 'Em Trânsito' }
           testid="customer_order_details__button-delivery-check"
           onClick={ setDeliveryStatus }
         >
@@ -102,4 +103,4 @@ const OrderDetails = () => {
   );
 };
 
-export default OrderDetails;
+export default CustomerOrderDetails;
