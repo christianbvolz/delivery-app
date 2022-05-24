@@ -40,8 +40,8 @@ const getSale = async (id) => {
   return result;
 };
 
-const updateStatus = async (id) => {
-  const dataValues = await Sale.update({ status: 'entregue' }, { where: { id } });
+const updateStatus = async (id, status) => {
+  const dataValues = await Sale.update({ status }, { where: { id } });
   
   return dataValues;
 };

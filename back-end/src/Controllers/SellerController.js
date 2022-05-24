@@ -1,4 +1,4 @@
-const SalerService = require('../Services/SalerService');
+const SellerService = require('../Services/SellerService');
 const { verifyToken } = require('../Token');
 
 const getAll = async (req, res, next) => {  
@@ -10,7 +10,7 @@ const getAll = async (req, res, next) => {
 
   if (!authorized) return next({ error: 400, message: 'UNAUTHORIZED' });
   
-  const data = await SalerService.getAll(authorized.id);
+  const data = await SellerService.getAll(authorized.id);
 
   return res.status(200).json(data);
 };

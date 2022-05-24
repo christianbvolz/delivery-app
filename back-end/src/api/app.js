@@ -5,6 +5,7 @@ const UserRouter = require('../Routes/UserRouter');
 const ProductsRouter = require('../Routes/ProductsRouter');
 const SalesProductsRouter = require('../Routes/SalesProductsRouter');
 const SalesRouter = require('../Routes/SalesRouter');
+const sellerRouter = require('../Routes/SellerRouter');
 
 const MiddlewareError = require('../Middlewares/MiddlewareError');
 
@@ -15,6 +16,7 @@ app.use('/images', express.static('public'));
 
 app.use('/', UserRouter);
 app.use('/', ProductsRouter);
+app.use('/seller', sellerRouter);
 app.use('/order', SalesProductsRouter);
 app.use('/orders', SalesRouter);
 app.use('/products', ProductsRouter);

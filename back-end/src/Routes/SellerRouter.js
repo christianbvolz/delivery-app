@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const SalerController = require('../Controllers/SalerController');
+const SellerController = require('../Controllers/SellerController');
 // const { validateOrder } = require('../Middlewares/Validations');
 
 const route = Router();
 
-route.get('/', SalerController.getAll);
+route.get('/', SellerController.getAll);
 
 module.exports = route;

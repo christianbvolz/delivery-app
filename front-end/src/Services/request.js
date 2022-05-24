@@ -43,8 +43,12 @@ const getRequests = async (endpoint, Authorization) => {
   return result.data;
 };
 
-const setStatusRequests = async (endpoint, Authorization) => {
-  const { data } = await axios.post((baseURL + endpoint), { headers: { Authorization } });
+const setStatusRequests = async (endpoint, body, Authorization) => {
+  const { data } = await axios.post(
+    (baseURL + endpoint),
+    body,
+    { headers: { Authorization } },
+  );
 
   return data;
 };
