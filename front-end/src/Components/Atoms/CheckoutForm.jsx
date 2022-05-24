@@ -4,10 +4,10 @@ import { ButtonOnClick, Input } from '.';
 
 export default function CheckoutForm({
   sellers,
-  selectedSeller,
-  setSelectedSeller,
-  deliveryAdress,
-  setDeliveryAdress,
+  sellerId,
+  setSellerId,
+  deliveryAddress,
+  setDeliveryAddress,
   deliveryNumber,
   setDeliveryNumber,
   finishOrder,
@@ -16,19 +16,19 @@ export default function CheckoutForm({
     <div>
       <select
         data-testid="customer_checkout__select-seller"
-        onChange={ ({ target }) => setSelectedSeller(target.value) }
-        value={ selectedSeller }
+        onChange={ ({ target }) => setSellerId(+target.value) }
+        value={ sellerId }
       >
-        {sellers.map(({ name }) => (
-          <option value={ name } key={ name }>{ name }</option>
+        {sellers.map(({ name, id }) => (
+          <option value={ id } key={ name }>{ name }</option>
         ))}
       </select>
       <Input
         placeholder="Endereço de entrega"
         testid="customer_checkout__input-address"
-        name="deliveryAdress"
-        onChange={ ({ target }) => setDeliveryAdress(target.value) }
-        value={ deliveryAdress }
+        name="deliveryAddress"
+        onChange={ ({ target }) => setDeliveryAddress(target.value) }
+        value={ deliveryAddress }
         type="text"
       />
       <Input
@@ -58,10 +58,10 @@ CheckoutForm.propTypes = {
     password: PropTypes.string,
     role: PropTypes.string,
   })).isRequired,
-  selectedSeller: PropTypes.string.isRequired,
-  setSelectedSeller: PropTypes.func.isRequired,
-  deliveryAdress: PropTypes.string.isRequired,
-  setDeliveryAdress: PropTypes.func.isRequired,
+  sellerId: PropTypes.number.isRequired,
+  setSellerId: PropTypes.func.isRequired,
+  deliveryAddress: PropTypes.string.isRequired,
+  setDeliveryAddress: PropTypes.func.isRequired,
   deliveryNumber: PropTypes.string.isRequired,
   setDeliveryNumber: PropTypes.func.isRequired,
   finishOrder: PropTypes.func.isRequired,

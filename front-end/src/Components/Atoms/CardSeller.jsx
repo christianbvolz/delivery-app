@@ -31,7 +31,7 @@ function CardSeller({ item }) {
           </h3>
         </div>
         <h4 data-testid={ `seller_orders__element-card-address-${item.id}` }>
-          { `${item.deliveryAdress}, ${item.deliveryNumber}` }
+          { `${item.deliveryAddress}, ${item.deliveryNumber}` }
         </h4>
       </div>
     </Link>

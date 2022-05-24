@@ -30,11 +30,17 @@ const register = async (req, res, next) => {
 
   if (!createdUser) return next({ error: 409, message: 'User already exists.' });
 
-  const { id } = createdUser;
+  const { id, role } = createdUser;
 
   const token = generateToken({ id, email });
+  const objLocalStorage = {
+    name,
+    email,
+    role,
+    token,
+  };
 
-  return res.status(201).json({ token, user: createdUser });
+  return res.status(201).json(objLocalStorage);
 };
 
 const validateUser = async (req, res, next) => {

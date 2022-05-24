@@ -2,13 +2,11 @@ const buildModelProduct = (sequelize, DataTypes) => {
     const Product = sequelize.define('Product', {
       name: DataTypes.STRING,
       price: DataTypes.DECIMAL,
-      urlImage: {
-        type: DataTypes.STRING,
-        field: 'url_image'
-      },
+      urlImage: DataTypes.STRING,
     }, {
       sequelize,
       tableName: 'products',
+      underscored: true,
       timestamps: false,
     });
   

@@ -8,10 +8,10 @@ import CheckoutForm from '../Components/Atoms/CheckoutForm';
 function Checkout() {
   const history = useHistory();
   const [cartCheckout, setCartCheckout] = useState([]);
-  const [deliveryAdress, setDeliveryAdress] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([{ name: 'Fulana Pereira' }]);
-  const [selectedSeller, setSelectedSeller] = useState('Fulana Pereira');
+  const [sellerId, setSellerId] = useState(2);
   const totalPrice = cartCheckout.reduce((acc, curr) => acc
       + parseFloat(curr.price * curr.quantity), 0).toFixed(2);
 
@@ -19,20 +19,18 @@ function Checkout() {
     try {
       const { token } = JSON.parse(localStorage.getItem('user'));
       const order = cartCheckout.map(({ id, quantity }) => ({ id, quantity }));
-      const { id: sellerId } = sellers.find(({ name }) => name === selectedSeller);
       const result = await saleProductsRelatedRequests(
         '/order/create',
         {
           order,
           sellerId,
           totalPrice,
-          deliveryAdress,
+          deliveryAddress,
           deliveryNumber,
         },
         token,
       );
       localStorage.removeItem('cart');
-      console.log(result);
       history.push(`/customer/orders/${result.data}`);
     } catch (error) {
       console.log({ error: error.response.data.message });
@@ -52,7 +50,6 @@ function Checkout() {
 
   useEffect(() => {
     const cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
-    console.log(cartLocalStorage);
     if (cartLocalStorage) setCartCheckout(cartLocalStorage);
     getSellers();
   }, []);
@@ -72,10 +69,10 @@ function Checkout() {
       </h1>
       <CheckoutForm
         sellers={ sellers }
-        selectedSeller={ selectedSeller }
-        setSelectedSeller={ setSelectedSeller }
-        deliveryAdress={ deliveryAdress }
-        setDeliveryAdress={ setDeliveryAdress }
+        sellerId={ sellerId }
+        setSellerId={ setSellerId }
+        deliveryAddress={ deliveryAddress }
+        setDeliveryAddress={ setDeliveryAddress }
         deliveryNumber={ deliveryNumber }
         setDeliveryNumber={ setDeliveryNumber }
         finishOrder={ finishOrder }

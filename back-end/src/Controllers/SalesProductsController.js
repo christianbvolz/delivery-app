@@ -6,8 +6,8 @@ const { verifyToken } = require('../Token');
 
 const create = async (req, res, next) => { 
   const { authorization } = req.headers;
-  const { order, sellerId, totalPrice, deliveryAdress, deliveryNumber } = req.body;
-  
+  const { order, sellerId, totalPrice, deliveryAddress, deliveryNumber } = req.body;
+
   if (!authorization) return next({ error: 400, message: 'UNAUTHORIZED' });
 
   const authorized = verifyToken(authorization);
@@ -25,8 +25,8 @@ const create = async (req, res, next) => {
   if (!orderVerify) return next({ error: 404, message: 'Product not found.' });
 
   const saleId = await SalesService
-    .create({ userId: authorized.id, sellerId, totalPrice, deliveryAdress, deliveryNumber });
-  
+    .create({ userId: authorized.id, sellerId, totalPrice, deliveryAddress, deliveryNumber });
+
   order.forEach(async ({ id: productId, quantity }) => {
     await SalesProductsService.create({ saleId, productId, quantity });
   });
